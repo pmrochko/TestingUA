@@ -1,0 +1,50 @@
+.card-body {
+    text-align: center;
+}
+
+.dropdown {
+    text-align: center;
+}
+
+.dropdown button {
+    min-width: 83%;
+}
+
+.dropdown ul {
+    text-align: center;
+}
+
+.dropdown ul p {
+    font-weight: bold;
+    background-color: #d4eaff;
+    margin: 0;
+    padding: 10px;
+}
+
+.dropdown-item:hover {
+    background-color: #fff6d4;
+}
+
+.modalWindow {
+    background-color: rgba(0, 0, 0, 0);
+    box-shadow: none;
+    margin-top: 15%;
+}
+
+.close-modal-btn {
+    z-index: 2;
+    position: absolute;
+    left: 465px;
+    top: 10px;
+}
+
+div.modal-dialog {
+    margin: 2% auto 0 auto;
+}
+
+.modal-editUser {
+    min-width: 100%;
+    background-color: white;
+    margin-right: auto;
+    margin-left: auto;
+}

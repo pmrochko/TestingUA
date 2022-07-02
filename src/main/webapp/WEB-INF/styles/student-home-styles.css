@@ -1,0 +1,27 @@
+body {
+    background-color: lightgrey;
+}
+
+main {
+    height: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.card {
+    margin-left: 3%;
+    margin-right: 3%;
+    min-width: 20rem;
+    min-height: 25rem;
+    border: 2px #FF8800 solid;
+}
+
+.card img {
+    margin: 2% auto 2% auto;
+}
+
+.m-b-20 {
+    margin-bottom: 20px;
+}

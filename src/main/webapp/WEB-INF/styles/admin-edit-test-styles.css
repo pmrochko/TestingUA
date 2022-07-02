@@ -1,0 +1,13 @@
+.button-submit-edit-question {
+    background-color: white;
+    border: 1px #31e300 solid;
+    border-radius: 5px;
+    color: #219d35;
+}
+
+.count-of-answers {
+    padding-left: 20%;
+}
+
+td.add-answer {
+}
