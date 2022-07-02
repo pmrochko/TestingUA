@@ -1,10 +1,12 @@
 package com.myproject.testingua.controllers.servlets.student;
 
 import com.myproject.testingua.DataBase.DBException;
+import com.myproject.testingua.controllers.Path;
 import com.myproject.testingua.models.entity.Answer;
 import com.myproject.testingua.models.entity.Question;
 import com.myproject.testingua.models.entity.Test;
 import com.myproject.testingua.models.enums.QuestionStatus;
+import com.myproject.testingua.models.enums.TestProgressStatus;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -20,6 +22,20 @@ public class TestResultsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
+        Test test = (Test) session.getAttribute("startedTest");
+        String result = (String) session.getAttribute("testResult");
+
+        if (test != null && result != null) {
+
+            request.getRequestDispatcher(Path.STUDENT_RESULT_TEST_PAGE).forward(request, response);
+
+        } else {
+
+            request.getRequestDispatcher(Path.ERROR_PAGE).forward(request, response);
+
+        }
 
     }
 
@@ -38,7 +54,9 @@ public class TestResultsServlet extends HttpServlet {
 
                 String valueName = "answ" + question.getId();
                 String result = request.getParameter(valueName);
-                answersID.add(Integer.valueOf(result));
+                if (result != null && !result.isBlank()) {
+                    answersID.add(Integer.valueOf(result));
+                }
 
             } else if (question.getQuestionStatus() == QuestionStatus.COMPLEX) {
 
@@ -68,7 +86,8 @@ public class TestResultsServlet extends HttpServlet {
         }
         System.out.println(resultScoreInPercent);
 
-        session.removeAttribute("startedTest");
-        response.sendRedirect("/student/tests");
+        session.setAttribute("testResult", resultScoreInPercent);
+        session.setAttribute("testStatus", TestProgressStatus.FINISHED);
+        response.sendRedirect("/student/tests/result");
     }
 }

@@ -4,7 +4,6 @@ import com.myproject.testingua.DataBase.DAO.AnswerDAO;
 import com.myproject.testingua.DataBase.DBException;
 import com.myproject.testingua.models.enums.AnswerStatus;
 import com.myproject.testingua.models.enums.QuestionStatus;
-import com.myproject.testingua.models.enums.TestProgressStatus;
 import com.myproject.testingua.models.enums.TestDifficulty;
 
 import java.util.List;
@@ -19,7 +18,6 @@ public class Test extends Entity{
     private String title;
     private String description;
     private TestDifficulty difficulty;
-    private TestProgressStatus progressStatus;
     private double time;                        // in minutes
     private List<Question> questionsList;
 
@@ -27,13 +25,12 @@ public class Test extends Entity{
         super();
     }
 
-    public Test(int id, Subject subject, String title, String description, TestDifficulty difficulty, TestProgressStatus progressStatus, double time) {
+    public Test(int id, Subject subject, String title, String description, TestDifficulty difficulty, double time) {
         super(id);
         this.subject = subject;
         this.title = title;
         this.description = description;
         this.difficulty = difficulty;
-        this.progressStatus = progressStatus;
         this.time = time;
     }
 
@@ -61,12 +58,6 @@ public class Test extends Entity{
     public void setDifficulty(TestDifficulty difficulty) {
         this.difficulty = difficulty;
     }
-    public TestProgressStatus getProgressStatus() {
-        return progressStatus;
-    }
-    public void setProgressStatus(TestProgressStatus progressStatus) {
-        this.progressStatus = progressStatus;
-    }
     public double getTime() {
         return time;
     }
@@ -82,42 +73,48 @@ public class Test extends Entity{
 
     public static String calculationResult(Map<Question, List<Integer>> answers) throws DBException {
 
-        int countOfRightAnswers = 0;
+        if (!answers.isEmpty()) {
 
-        for (Question question : answers.keySet()) {
+            int countOfRightAnswers = 0;
+            for (Question question : answers.keySet()) {
 
-            if (question.getQuestionStatus() == QuestionStatus.SIMPLE) {
+                if (question.getQuestionStatus() == QuestionStatus.SIMPLE) {
 
-                int answerID = answers.get(question).get(0);
-                Answer answer = new AnswerDAO().findAnswerByID(answerID);
+                    if (!answers.get(question).isEmpty()) {
+                        int answerID = answers.get(question).get(0);
+                        Answer answer = new AnswerDAO().findAnswerByID(answerID);
+                        if (answer.getAnswerStatus() == AnswerStatus.RIGHT) countOfRightAnswers++;
+                    }
 
-                if (answer.getAnswerStatus() == AnswerStatus.RIGHT) countOfRightAnswers++;
+                } else if (question.getQuestionStatus() == QuestionStatus.COMPLEX) {
 
-            } else if (question.getQuestionStatus() == QuestionStatus.COMPLEX) {
+                    List<Integer> currentSelectedAnswers = answers.get(question);
+                    if (!currentSelectedAnswers.isEmpty()) {
 
-                List<Integer> currentSelectedAnswers = answers.get(question);
-                long totalCountRightAnswersInQuestion = question.getAnswersList().stream()
-                        .filter(a -> a.getAnswerStatus().equals(AnswerStatus.RIGHT))
-                        .count();
-                long totalCountRightAnswersInCurrentList = currentSelectedAnswers.stream()
-                        .map(Test::getAnswerByID).filter(Objects::nonNull)
-                        .filter(a -> a.getAnswerStatus() == AnswerStatus.RIGHT)
-                        .count();
+                        long totalCountRightAnswersInQuestion = question.getAnswersList().stream()
+                                .filter(a -> a.getAnswerStatus().equals(AnswerStatus.RIGHT))
+                                .count();
+                        long totalCountRightAnswersInCurrentList = currentSelectedAnswers.stream()
+                                .map(Test::getAnswerByID).filter(Objects::nonNull)
+                                .filter(a -> a.getAnswerStatus() == AnswerStatus.RIGHT)
+                                .count();
 
-                if (totalCountRightAnswersInQuestion == totalCountRightAnswersInCurrentList &&
-                        currentSelectedAnswers.size() == totalCountRightAnswersInQuestion) {
+                        if (totalCountRightAnswersInQuestion == totalCountRightAnswersInCurrentList &&
+                                currentSelectedAnswers.size() == totalCountRightAnswersInQuestion)
+                            countOfRightAnswers++;
 
-                    countOfRightAnswers++;
-
+                    }
                 }
             }
 
+            if (countOfRightAnswers != 0) {
+                int totalCountQuestions = answers.keySet().size();
+                long resultScoreInPercent = Math.round(countOfRightAnswers * 100.0 / totalCountQuestions);
+                return resultScoreInPercent + "%";
+            }
         }
 
-        int totalCountQuestions = answers.keySet().size();
-        long resultScoreInPercent = Math.round(countOfRightAnswers * 100.0 / totalCountQuestions);
-
-        return resultScoreInPercent + "%";
+        return "0%";
     }
 
     private static Answer getAnswerByID(int id) {

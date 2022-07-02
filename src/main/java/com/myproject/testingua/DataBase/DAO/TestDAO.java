@@ -153,7 +153,6 @@ public class TestDAO {
         test.setDescription(rs.getString("description"));
         test.setDifficulty(TestDifficulty.valueOf(rs.getString("difficulty")));
         test.setTime(rs.getDouble("time"));
-        test.setProgressStatus(null);
 
         List<Question> questions = new QuestionDAO().findAllQuestionsByTestID(id);
         test.setQuestionsList(questions);

@@ -1,0 +1,54 @@
+header {
+    max-height: 10%;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(14,174,87,1) 0%, rgba(12,116,117,1) 90% );
+    min-height: 100%;
+}
+
+/* --------------------------Main content--------------------------- */
+
+div.result-window {
+    margin-top: 2%;
+    margin-bottom: 2%;
+    padding: 2%;
+    border-radius: 10px;
+    color: #c0c0c0;
+    font-size: 18px;
+}
+
+    div.result-window div {
+        padding: 2%;
+        background-color: #464646;
+        border-radius: 10px;
+        margin: 1%;
+    }
+
+    div.description {
+    }
+
+    div.buttons {
+        display: flex;
+        align-items: center;
+        background-color: rgba(0,0,0,0) !important;
+        padding: 0 !important;
+    }
+
+    div.buttons button {
+        font-weight: bold;
+        min-height: 50px;
+        width: 50%;
+        border-radius: 10px;
+        background-color: darkolivegreen;
+        margin: 2% 1% 0 1%;
+        background-image: radial-gradient( circle farthest-corner at 10% 20%, rgb(166, 117, 80) 0%, rgb(103, 161, 91) 90% );
+    }
+
+/* ----------------------------------------------------------------- */
+
+footer {
+    max-height: 10%;
+}
