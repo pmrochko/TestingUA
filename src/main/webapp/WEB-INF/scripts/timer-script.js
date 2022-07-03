@@ -24,7 +24,8 @@ function setTimer(time) {
         if (distance < 0) {
             clearInterval(x);
             document.getElementById("timer").innerHTML = "EXPIRED";
-            document.location='http://localhost:8080/student/tests';
+            document.getElementById("timeInputInForm").setAttribute("value", "EXPIRED");
+            document.getElementById("submit").click();
         }
     }, 1000);
 }

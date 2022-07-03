@@ -93,8 +93,12 @@
 
                 </c:forEach>
 
+                <label hidden="hidden">
+                    <input name="time" value="" id="timeInputInForm" hidden="hidden">
+                </label>
+
                 <div class="d-grid gap-2 col-6 mx-auto">
-                    <button type="submit" class="btn btn-success">Submit</button>
+                    <button id="submit" type="submit" class="btn btn-success">Submit</button>
                 </div>
 
             </form>

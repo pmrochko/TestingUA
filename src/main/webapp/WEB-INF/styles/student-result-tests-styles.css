@@ -12,6 +12,7 @@ main {
 /* --------------------------Main content--------------------------- */
 
 div.result-window {
+    width: 750px;
     margin-top: 2%;
     margin-bottom: 2%;
     padding: 2%;
