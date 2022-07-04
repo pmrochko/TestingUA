@@ -75,16 +75,16 @@ public class TestResultsServlet extends HttpServlet {
         }
 
         System.out.println(resultMap);
-        String resultScoreInPercent = null;
+        long resultScore = 0;
         try {
-            resultScoreInPercent = Test.calculationResult(resultMap);
+            resultScore = Test.calculationResult(resultMap);
         } catch (DBException e) {
             e.printStackTrace();
             // error-page
         }
-        System.out.println(resultScoreInPercent);
+        System.out.println(resultScore);
 
-        session.setAttribute("testResult", resultScoreInPercent);
+        session.setAttribute("testResult", resultScore);
 
         String time = request.getParameter("time");
         if (time != null && !time.isBlank() && time.equals("EXPIRED")) {
@@ -92,6 +92,7 @@ public class TestResultsServlet extends HttpServlet {
         } else {
             session.setAttribute("testStatus", TestProgressStatus.FINISHED);
         }
+
 
         response.sendRedirect("/student/tests/result");
     }

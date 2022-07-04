@@ -5,19 +5,46 @@ header {
 main {
     display: flex;
     justify-content: center;
+    flex-direction: column;
     background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(14,174,87,1) 0%, rgba(12,116,117,1) 90% );
     min-height: 100%;
 }
 
 /* --------------------------Main content--------------------------- */
 
+div.timeoutInfo {
+    width: 500px;
+    margin: 3% auto 1% auto;
+    padding-top: 10px;
+    border-radius: 10px;
+    background-color: #ffc107;
+    border: 1px #f29263 solid;
+    color: black;
+    text-align: center;
+}
+
+    .timeoutInfo button {
+        position: absolute;
+        border: 0;
+        background: 0;
+        left: 65.5%;
+        top: 15.5%;
+    }
+
+    .timeoutInfo-title {
+        padding: 10px;
+    }
+
+    .timeoutInfo-description {
+        padding: 20px 0 10px 0;
+    }
+
 div.result-window {
     width: 750px;
-    margin-top: 2%;
-    margin-bottom: 2%;
+    margin: 3% auto 3% auto;
     padding: 2%;
     border-radius: 10px;
-    color: #c0c0c0;
+    color: #d9d9d9;
     font-size: 18px;
 }
 

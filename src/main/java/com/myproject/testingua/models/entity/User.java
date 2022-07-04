@@ -14,6 +14,7 @@ public class User extends Entity{
     private String surname;
     private String tel;
     private boolean blocked;
+    private HistoryOfTest recordsOfPassedTests;
 
     public User() {
         super();

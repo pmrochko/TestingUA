@@ -71,7 +71,7 @@ public class Test extends Entity{
         this.questionsList = questionsList;
     }
 
-    public static String calculationResult(Map<Question, List<Integer>> answers) throws DBException {
+    public static long calculationResult(Map<Question, List<Integer>> answers) throws DBException {
 
         if (!answers.isEmpty()) {
 
@@ -109,12 +109,11 @@ public class Test extends Entity{
 
             if (countOfRightAnswers != 0) {
                 int totalCountQuestions = answers.keySet().size();
-                long resultScoreInPercent = Math.round(countOfRightAnswers * 100.0 / totalCountQuestions);
-                return resultScoreInPercent + "%";
+                return Math.round(countOfRightAnswers * 100.0 / totalCountQuestions);
             }
         }
 
-        return "0%";
+        return 0;
     }
 
     private static Answer getAnswerByID(int id) {
