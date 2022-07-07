@@ -65,13 +65,18 @@ div.result-window {
         padding: 0 !important;
     }
 
+    div.buttons form {
+        min-height: 50px;
+        width: 50%;
+        margin: 2% 1% 0 1%;
+    }
+
     div.buttons button {
         font-weight: bold;
         min-height: 50px;
-        width: 50%;
+        width: 100%;
         border-radius: 10px;
         background-color: darkolivegreen;
-        margin: 2% 1% 0 1%;
         background-image: radial-gradient( circle farthest-corner at 10% 20%, rgb(166, 117, 80) 0%, rgb(103, 161, 91) 90% );
     }
 
