@@ -23,7 +23,7 @@
         <%@ include file="../styles/profile-styles.css" %>
     </style>
 </head>
-<body>
+<body class="bg-dark">
 
     <c:choose>
         <c:when test="${sessionScope.currentUser.role.name() == 'ADMIN'}">
@@ -201,8 +201,10 @@
                                             </div>
 
                                             <div class="col-sm-6">
-                                                <p class="m-b-10 f-w-600">Successful tests</p>
-                                                <h6 class="text-muted f-w-400">***</h6>
+                                                <c:if test="${sessionScope.currentUser.role.name() == 'STUDENT'}">
+                                                    <p class="m-b-10 f-w-600">Passed tests</p>
+                                                    <h6 class="text-muted f-w-400">${sessionScope.currentUser.countOfPassedTests()}</h6>
+                                                </c:if>
                                             </div>
 
                                         </div>

@@ -17,7 +17,7 @@ public class SubjectDAO {
         pool = ConnectionPool.getInstance();
     }
 
-    private final static String SQL_FIND_ALL_SUBJECTS = "SELECT * FROM subjects";
+    private static final String SQL_FIND_ALL_SUBJECTS = "SELECT * FROM subjects";
     private static final String SQL_FIND_SUBJECT_BY_NAME = "SELECT * FROM subjects WHERE name=?";
     private static final String SQL_FIND_SUBJECT_BY_ID = "SELECT * FROM subjects WHERE \"ID\"=?";
 

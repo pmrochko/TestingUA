@@ -20,7 +20,7 @@
 
     <div class="start-content">
         <!-- Pills navs -->
-        <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+        <ul class="nav nav-pills nav-justified mb-4" id="ex1" role="tablist">
             <li class="nav-item" role="presentation">
                 <a class="nav-link active" id="tab-login" data-mdb-toggle="pill" href="#pills-login" role="tab"
                    aria-controls="pills-login" aria-selected="true">Login</a>
@@ -30,33 +30,26 @@
                    aria-controls="pills-register" aria-selected="false">Register</a>
             </li>
         </ul>
-        <!-- Pills navs -->
 
         <!-- Pills content -->
         <div class="tab-content">
             <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
+
+                <c:choose>
+                    <c:when test="${sessionScope.loginStatus.equals('banned')}">
+                        <div class="mb-3 mt-5" style="text-align: center; color: red;">
+                            Your account has been blocked
+                        </div>
+                        <c:remove var="loginStatus" scope="session"/>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="mb-3 mt-5" style="text-align: center;">
+                            Please login to your account
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+
                 <form action="${pageContext.request.contextPath}/login" method="post">
-                    <div class="text-center mb-3">
-                        <p>Sign in with:</p>
-                        <button type="button" class="btn btn-link btn-floating mx-1">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-
-                        <button type="button" class="btn btn-link btn-floating mx-1">
-                            <i class="fab fa-google"></i>
-                        </button>
-
-                        <button type="button" class="btn btn-link btn-floating mx-1">
-                            <i class="fab fa-twitter"></i>
-                        </button>
-
-                        <button type="button" class="btn btn-link btn-floating mx-1">
-                            <i class="fab fa-github"></i>
-                        </button>
-                    </div>
-
-                    <p class="text-center">or:</p>
-
                     <!-- Login input -->
                     <div class="form-outline mb-4">
                         <input name="login" type="text" id="loginName" class="form-control" />
@@ -64,7 +57,7 @@
                     </div>
 
                     <!-- Password input -->
-                    <div class="form-outline mb-4">
+                    <div class="form-outline mb-6">
                         <input name="password" type="password" id="loginPassword" class="form-control" />
                         <label class="form-label" for="loginPassword">Password</label>
                     </div>
@@ -81,7 +74,7 @@
 
                         <div class="col-md-6 d-flex justify-content-center">
                             <!-- Simple link -->
-                            <a href="#!">Forgot password?</a>
+                            <a href="">Forgot password?</a>
                         </div>
                     </div>
 
@@ -90,34 +83,16 @@
 
                     <!-- Register buttons -->
                     <div class="text-center">
-                        <p>Not a member? <a href="#!">Register</a></p>
+                        <p>Not a member? <a href="#" onclick="document.querySelector('#tab-register').click()">Register</a></p>
                     </div>
                 </form>
 
             </div>
             <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
                 <form action="${pageContext.request.contextPath}/registration" method="post">
-                    <div class="text-center mb-3">
-                        <p>Sign up with:</p>
-                        <button type="button" class="btn btn-link btn-floating mx-1">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-
-                        <button type="button" class="btn btn-link btn-floating mx-1">
-                            <i class="fab fa-google"></i>
-                        </button>
-
-                        <button type="button" class="btn btn-link btn-floating mx-1">
-                            <i class="fab fa-twitter"></i>
-                        </button>
-
-                        <button type="button" class="btn btn-link btn-floating mx-1">
-                            <i class="fab fa-github"></i>
-                        </button>
+                    <div class="mb-3 " style="text-align: center;">
+                        Filling out the registration form
                     </div>
-
-                    <p class="text-center">or:</p>
-
                     <!-- Name input -->
                     <div class="form-outline mb-4">
                         <input name="name" type="text" id="registerName" class="form-control" />
@@ -164,11 +139,10 @@
                     </div>
 
                     <!-- Submit button -->
-                    <button type="submit" class="btn btn-primary btn-block mb-3">Sign in</button>
+                    <button type="submit" class="btn btn-primary btn-block mb-3">Sign up</button>
                 </form>
             </div>
         </div>
-        <!-- Pills content -->
     </div>
 
     <!-- MDB -->

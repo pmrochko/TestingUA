@@ -1,6 +1,9 @@
 <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="${pageContext.request.contextPath}/admin">Admin Menu</a>
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/admin">
+            <img src="../../../images/testingUA.png" alt="logo" style="width: 50px">
+            TestingUA (Admin)
+        </a>
         <button
                 class="navbar-toggler"
                 type="button"

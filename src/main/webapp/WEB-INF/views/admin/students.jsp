@@ -105,7 +105,7 @@
                 <th>Name</th>
                 <th>Login</th>
                 <th>Phone number</th>
-                <th>Success tests</th>
+                <th>Passed tests</th>
                 <th>Status</th>
                 <th>Actions</th>
             </tr>
@@ -137,8 +137,8 @@
                         <td>
                             ${user.tel}
                         </td>
-                        <td>
-                            0
+                        <td style="padding-left: 40px;">
+                            ${user.countOfPassedTests()}
                         </td>
                         <td>
                             <c:choose>

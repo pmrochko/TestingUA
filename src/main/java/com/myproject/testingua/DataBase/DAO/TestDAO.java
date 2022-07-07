@@ -19,7 +19,7 @@ public class TestDAO {
         pool = ConnectionPool.getInstance();
     }
 
-    private final static String SQL_INSERT_TEST = "INSERT INTO tests (subject_id, title, description, difficulty, time) " +
+    private static final String SQL_INSERT_TEST = "INSERT INTO tests (subject_id, title, description, difficulty, time) " +
             "VALUES (?, ?, ?, ?, ?)";
     private static final String SQL_FIND_TEST_BY_ID = "SELECT * FROM tests WHERE \"ID\"=?";
     private static final String SQL_FIND_ALL_TESTS = "SELECT * FROM tests";

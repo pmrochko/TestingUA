@@ -1,6 +1,9 @@
 <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="${pageContext.request.contextPath}/student">Hello, ${sessionScope.currentUser.name}</a>
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/student">
+            <img src="../../../images/testingUA.png" alt="logo" style="width: 50px">
+            TestingUA
+        </a>
         <button
                 class="navbar-toggler"
                 type="button"

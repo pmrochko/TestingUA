@@ -80,7 +80,7 @@
                 Status: ${sessionScope.testStatus.name()}
             </div>
             <div class="score">
-                Score: ${sessionScope.testResult}
+                Score: ${sessionScope.testResult}%
             </div>
             <div class="buttons">
                 <button>

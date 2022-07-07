@@ -19,12 +19,15 @@ import java.util.List;
 @WebServlet(name = "StudentTestsPageServlet", value = "/student/tests")
 public class StudentTestsPageServlet extends HttpServlet {
 
+    private static final long serialVersionUID = -5783386666661608242L;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
         List<Subject> subjects = null;
         List<Test> tests = null;
+
         try {
             SubjectDAO subjectDAO = new SubjectDAO();
             subjects = subjectDAO.findAllSubjects();

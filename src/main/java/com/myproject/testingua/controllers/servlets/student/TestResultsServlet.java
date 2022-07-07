@@ -1,10 +1,12 @@
 package com.myproject.testingua.controllers.servlets.student;
 
+import com.myproject.testingua.DataBase.DAO.HistoryTestsDAO;
 import com.myproject.testingua.DataBase.DBException;
 import com.myproject.testingua.controllers.Path;
 import com.myproject.testingua.models.entity.Answer;
 import com.myproject.testingua.models.entity.Question;
 import com.myproject.testingua.models.entity.Test;
+import com.myproject.testingua.models.entity.User;
 import com.myproject.testingua.models.enums.QuestionStatus;
 import com.myproject.testingua.models.enums.TestProgressStatus;
 
@@ -20,14 +22,16 @@ import java.util.Map;
 @WebServlet(name = "TestResultsServlet", value = "/student/tests/result")
 public class TestResultsServlet extends HttpServlet {
 
+    private static final long serialVersionUID = 1140658591343481854L;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
         Test test = (Test) session.getAttribute("startedTest");
-        String result = (String) session.getAttribute("testResult");
+        long result = (long) session.getAttribute("testResult");
 
-        if (test != null && result != null) {
+        if (test != null) {
 
             request.getRequestDispatcher(Path.STUDENT_RESULT_TEST_PAGE).forward(request, response);
 
@@ -44,6 +48,7 @@ public class TestResultsServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         Test test = (Test) session.getAttribute("startedTest");
+        User student = (User) session.getAttribute("currentUser");
         Map<Question, List<Integer>> resultMap = new HashMap<>();
 
         for (Question question : test.getQuestionsList()) {
@@ -87,12 +92,23 @@ public class TestResultsServlet extends HttpServlet {
         session.setAttribute("testResult", resultScore);
 
         String time = request.getParameter("time");
+        TestProgressStatus status = null;
         if (time != null && !time.isBlank() && time.equals("EXPIRED")) {
-            session.setAttribute("testStatus", TestProgressStatus.TIMEOUT);
+            status = TestProgressStatus.TIMEOUT;
+            session.setAttribute("testStatus", status);
         } else {
-            session.setAttribute("testStatus", TestProgressStatus.FINISHED);
+            status = TestProgressStatus.FINISHED;
+            session.setAttribute("testStatus", status);
         }
 
+        // Recording result in history
+        try {
+            HistoryTestsDAO historyTestsDAO = new HistoryTestsDAO();
+            historyTestsDAO.finishTest(student.getId(), test.getId(), (int) resultScore, status);
+        } catch (DBException e) {
+            e.printStackTrace();
+            // error-page
+        }
 
         response.sendRedirect("/student/tests/result");
     }

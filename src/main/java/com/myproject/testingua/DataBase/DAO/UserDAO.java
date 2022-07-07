@@ -2,6 +2,7 @@ package com.myproject.testingua.DataBase.DAO;
 
 import com.myproject.testingua.DataBase.DBException;
 import com.myproject.testingua.DataBase.ConnectionPool;
+import com.myproject.testingua.models.entity.HistoryOfTest;
 import com.myproject.testingua.models.entity.User;
 import com.myproject.testingua.models.enums.UserRoles;
 
@@ -21,16 +22,16 @@ public class UserDAO {
     private static final String SQL_FIND_USER_BY_EMAIL = "SELECT * FROM users WHERE email=?";
     private static final String SQL_FIND_USER_BY_LOGIN = "SELECT * FROM users WHERE login=?";
     private static final String SQL_FIND_USER_BY_ID = "SELECT * FROM users WHERE \"ID\"=?";
-    private final static String SQL_INSERT_USER = "INSERT INTO users (login, email, role, password, name, surname) " +
+    private static final String SQL_INSERT_USER = "INSERT INTO users (login, email, role, password, name, surname) " +
             "VALUES (?, ?, 'STUDENT', ?, ?, ?)";
 
-    private final static String SQL_UPDATE_USER_SURNAME = "UPDATE users SET surname=? WHERE \"ID\"=?";
-    private final static String SQL_UPDATE_USER_NAME = "UPDATE users SET name=? WHERE \"ID\"=?";
-    private final static String SQL_UPDATE_USER_EMAIL = "UPDATE users SET email=? WHERE \"ID\"=?";
-    private final static String SQL_UPDATE_USER_TEL = "UPDATE users SET tel=? WHERE \"ID\"=?";
-    private final static String SQL_UPDATE_USER_LOGIN = "UPDATE users SET login=? WHERE \"ID\"=?";
-    private final static String SQL_UPDATE_USER_PASSWORD = "UPDATE users SET password=? WHERE \"ID\"=?";
-    private final static String SQL_UPDATE_BANSTATUS = "UPDATE users SET \"banStatus\"=? WHERE \"ID\"=?";
+    private static final String SQL_UPDATE_USER_SURNAME = "UPDATE users SET surname=? WHERE \"ID\"=?";
+    private static final String SQL_UPDATE_USER_NAME = "UPDATE users SET name=? WHERE \"ID\"=?";
+    private static final String SQL_UPDATE_USER_EMAIL = "UPDATE users SET email=? WHERE \"ID\"=?";
+    private static final String SQL_UPDATE_USER_TEL = "UPDATE users SET tel=? WHERE \"ID\"=?";
+    private static final String SQL_UPDATE_USER_LOGIN = "UPDATE users SET login=? WHERE \"ID\"=?";
+    private static final String SQL_UPDATE_USER_PASSWORD = "UPDATE users SET password=? WHERE \"ID\"=?";
+    private static final String SQL_UPDATE_BANSTATUS = "UPDATE users SET \"banStatus\"=? WHERE \"ID\"=?";
 
 
     public boolean updateUserSurname(String newSurname, int id) throws DBException {

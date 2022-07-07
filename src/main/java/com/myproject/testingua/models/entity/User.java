@@ -1,5 +1,7 @@
 package com.myproject.testingua.models.entity;
 
+import com.myproject.testingua.DataBase.DAO.HistoryTestsDAO;
+import com.myproject.testingua.DataBase.DBException;
 import com.myproject.testingua.models.enums.UserRoles;
 
 public class User extends Entity{
@@ -14,7 +16,6 @@ public class User extends Entity{
     private String surname;
     private String tel;
     private boolean blocked;
-    private HistoryOfTest recordsOfPassedTests;
 
     public User() {
         super();
@@ -77,5 +78,21 @@ public class User extends Entity{
     }
     public boolean isBlocked() {
         return blocked;
+    }
+
+    public boolean historyContainRecordedTest(Test test) throws DBException {
+
+        return HistoryOfTest.historyContainRecordedTest(test, getId());
+
+    }
+    public int countOfPassedTests() {
+        try {
+            HistoryTestsDAO historyTestsDAO = new HistoryTestsDAO();
+            return historyTestsDAO.findAllTestHistoryRecordsByStudID(getId()).size();
+        } catch (DBException e) {
+            e.printStackTrace();
+            //error - page
+        }
+        return 0;
     }
 }

@@ -109,10 +109,20 @@
                     </td>
 
                     <td>
-                        <button onclick="document.location='/students/tests/start?id=${test.id}'"
-                                type="button" class="btn btn-warning btn-sm btn-rounded">
-                            Start this test
-                        </button>
+                        <c:choose>
+                            <c:when test="${sessionScope.currentUser.historyContainRecordedTest(test) == true}">
+                                <button onclick="document.location='/students/tests/start?id=${test.id}'"
+                                        type="button" class="btn btn-success btn-sm btn-rounded">
+                                    Try again
+                                </button>
+                            </c:when>
+                            <c:otherwise>
+                                <button onclick="document.location='/students/tests/start?id=${test.id}'"
+                                        type="button" class="btn btn-warning btn-sm btn-rounded">
+                                    Start this test
+                                </button>
+                            </c:otherwise>
+                        </c:choose>
                     </td>
                 </tr>
             </c:forEach>
