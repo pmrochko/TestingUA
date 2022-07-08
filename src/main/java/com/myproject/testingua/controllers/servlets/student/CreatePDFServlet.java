@@ -10,7 +10,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "CreatePDFServlet", value = "/student/openResultInPDF")
+@WebServlet(name = "CreatePDFServlet", value = "/student/resultPDF")
 public class CreatePDFServlet extends HttpServlet {
 
     private static final long serialVersionUID = 5213718233554290566L;

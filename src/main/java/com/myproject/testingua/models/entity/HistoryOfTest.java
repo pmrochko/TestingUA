@@ -42,6 +42,17 @@ public class HistoryOfTest extends Entity {
         this.result = result;
     }
 
+    public String getDate() {
+        String full = getDateTime();
+        String[] dateAndTime = full.split("\\s");
+        return dateAndTime[0];
+    }
+    public String getTime() {
+        String full = getDateTime();
+        String[] dateAndTime = full.split("\\s");
+        return dateAndTime[1];
+    }
+
     public static boolean historyContainRecordedTest(Test test, int studID) throws DBException {
 
         boolean check = false;

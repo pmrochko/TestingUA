@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @WebServlet(name = "StudentTestsPageServlet", value = "/student/tests")
 public class StudentTestsPageServlet extends HttpServlet {
@@ -33,6 +34,19 @@ public class StudentTestsPageServlet extends HttpServlet {
             subjects = subjectDAO.findAllSubjects();
             TestDAO testDAO = new TestDAO();
             tests = testDAO.findAllTests();
+
+            String selectedSubject = request.getParameter("selectedSubject");
+            if (selectedSubject != null) {
+                request.setAttribute("selectedSubject", selectedSubject);
+                for (Subject subject : subjects) {
+                    if (subject.getName().equals(selectedSubject)) {
+                        tests = tests.stream()
+                                .filter(t -> t.getSubject().equals(subject))
+                                .collect(Collectors.toList());
+                    }
+                }
+            }
+
         } catch (DBException e) {
             e.printStackTrace();
         }
@@ -47,6 +61,12 @@ public class StudentTestsPageServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String selectedSubject = request.getParameter("selectedSubject");
+        if (selectedSubject != null && !selectedSubject.isBlank() && !selectedSubject.equals("All"))
+            response.sendRedirect("/student/tests?selectedSubject=" + selectedSubject);
+        else
+            response.sendRedirect("/student/tests");
 
     }
 

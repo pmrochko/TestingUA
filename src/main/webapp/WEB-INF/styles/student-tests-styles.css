@@ -14,13 +14,32 @@ div.search {
     max-width: 25%;
 }
 
+    div.search div.form-outline input, div.search div.form-outline label {
+        color: #d0d0d0 !important;
+    }
+
 div.timer {
     max-width: 25%;
+}
+
+.header h5 {
+    font-weight: bold;
+    margin: 0;
+    padding-right: 1%;
 }
 
 div.header-title {
     margin-right: 50%;
     font-weight: bold;
+}
+
+div.header-select-subject {
+    margin-right: 40%;
+    min-width: 15%;
+}
+
+div.header-select-subject form {
+    margin: 0;
 }
 
 input#searchForm {
@@ -42,8 +61,14 @@ main {
     background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(14,174,87,1) 0%, rgba(12,116,117,1) 90% );
 }
 
-main table {
+.table-th {
+    user-select: none;
 }
+
+    .table-th:hover {
+        color: rgb(255, 116, 0);
+        cursor: pointer;
+    }
 
 div.test-title {
     display: flex;
