@@ -18,6 +18,11 @@
 </head>
 <body>
 
+    <a class="navbar-brand start-logo" href="${pageContext.request.contextPath}/">
+        <img src="images/testingUA.png" alt="logo" style="width: 40px">
+        TestingUA
+    </a>
+
     <div class="start-content">
         <!-- Pills navs -->
         <ul class="nav nav-pills nav-justified mb-4" id="ex1" role="tablist">
@@ -40,7 +45,16 @@
                         <div class="mb-3 mt-5" style="text-align: center; color: red;">
                             Your account has been blocked
                         </div>
-                        <c:remove var="loginStatus" scope="session"/>
+                    </c:when>
+                    <c:when test="${sessionScope.loginStatus.equals('empty')}">
+                        <div class="mb-3 mt-5" style="text-align: center; color: #ff7300;">
+                            Fill in all the fields and try again
+                        </div>
+                    </c:when>
+                    <c:when test="${sessionScope.loginStatus.equals('failed')}">
+                        <div class="mb-3 mt-5" style="text-align: center; color: red;">
+                            You have entered incorrect data
+                        </div>
                     </c:when>
                     <c:otherwise>
                         <div class="mb-3 mt-5" style="text-align: center;">
@@ -48,6 +62,7 @@
                         </div>
                     </c:otherwise>
                 </c:choose>
+                <c:remove var="loginStatus" scope="session"/>
 
                 <form action="${pageContext.request.contextPath}/login" method="post">
                     <!-- Login input -->

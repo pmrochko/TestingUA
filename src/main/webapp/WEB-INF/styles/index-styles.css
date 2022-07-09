@@ -8,3 +8,12 @@ body {
     width: 30%;
     margin-top: 4%;
 }
+
+.start-logo {
+    text-decoration: none;
+    font-weight: bold;
+    position: absolute;
+    left: 15px;
+    top: 10px;
+    color: black;
+}

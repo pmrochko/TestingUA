@@ -31,3 +31,12 @@ tr.answer-row {
     border-left: 1px #f29263 solid;
     border-right: 1px #f29263 solid;
 }
+
+.table-th {
+    user-select: none;
+}
+
+.table-th:hover {
+    color: rgb(255, 116, 0);
+    cursor: pointer;
+}

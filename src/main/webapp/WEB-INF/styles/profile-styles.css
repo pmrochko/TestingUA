@@ -103,9 +103,9 @@ div.modal-dialog {
 }
 
 main {
-    background: -webkit-gradient(linear, left top, right top, from(#fff2eb), to(#d4eaff));
-    background: linear-gradient(to right, #d4eaff, #fff2eb);
-    min-height: 83%;
+    background: -webkit-gradient(linear, left top, right top, from(#c1d296), to(#a1bad7));
+    background: linear-gradient(to right, #a1bad7, #c1d296);
+    min-height: 82%;
 }
 
 .padding {
@@ -236,4 +236,16 @@ h6 {
     margin: 0 10px 0 0;
     -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
+}
+
+.text-red {
+    color: red;
+}
+
+.text-green {
+    color: green;
+}
+
+.text-orange {
+    color: orange;
 }

@@ -55,7 +55,8 @@ div.result-window {
         margin: 1%;
     }
 
-    div.description {
+    div.score {
+        border: 1px #518f42 solid;
     }
 
     div.buttons {

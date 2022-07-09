@@ -63,19 +63,19 @@
                         <c:if test="${not empty sessionScope.changePassword}">
                             <c:choose>
                                 <c:when test="${sessionScope.changePassword == 'success'}">
-                                    <div class="progress-description text-green">Ви успішно змінили свій пароль!</div>
+                                    <div class="progress-description text-green">You have successfully changed your password!</div>
                                     <script>
-                                        swal("Успіх", "Ви успішно змінили свій пароль!", "success");
+                                        swal("Success", "You have successfully changed your password!", "success");
                                     </script>
                                 </c:when>
                                 <c:when test="${sessionScope.changePassword == 'failed'}">
-                                    <div class="progress-description text-red">Не вдалося змінити пароль!</div>
+                                    <div class="progress-description text-red">Failed to change password!</div>
                                     <script>
-                                        swal("Помилка", "Не вдалося змінити пароль!", "error");
+                                        swal("Error", "Failed to change password!", "error");
                                     </script>
                                 </c:when>
                                 <c:when test="${sessionScope.changePassword == 'incorrectInput'}">
-                                    <div class="progress-description text-red">Введені дані - неправильні!</div>
+                                    <div class="progress-description text-red">The entered data is incorrect!</div>
                                     <script type="text/javascript">
                                         $(document).ready(function(){
                                             $("#modal-edit-password").modal('show');
@@ -83,7 +83,7 @@
                                     </script>
                                 </c:when>
                                 <c:when test="${sessionScope.changePassword == 'emptyInput'}">
-                                    <div class="progress-description text-orange">Заповніть усі поля!</div>
+                                    <div class="progress-description text-orange">Fill in all fields!</div>
                                     <script type="text/javascript">
                                         $(document).ready(function(){
                                             $("#modal-edit-password").modal('show');

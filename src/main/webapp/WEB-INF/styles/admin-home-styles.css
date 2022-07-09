@@ -1,13 +1,11 @@
-body {
-    background-color: lightgrey;
-}
-
 main {
-    height: 80%;
+    min-height: 82%;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    background-image: radial-gradient( circle farthest-corner at 10% 20%, rgb(175, 110, 56) 0%, rgb(138, 46, 46) 90% );
+
 }
 
 .card {
@@ -20,6 +18,21 @@ main {
 
 .card img {
     margin: 2% auto 2% auto;
+}
+
+.onclick-picture {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+.onclick-anim {
+    transition: all 0.5s;
+}
+
+.onclick-anim:hover {
+    transform: scale(1.1);
+    cursor: pointer;
 }
 
 .m-b-20 {

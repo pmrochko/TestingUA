@@ -48,3 +48,12 @@ div.modal-dialog {
     margin-right: auto;
     margin-left: auto;
 }
+
+.table-th {
+    user-select: none;
+}
+
+.table-th:hover {
+    color: rgb(255, 116, 0);
+    cursor: pointer;
+}

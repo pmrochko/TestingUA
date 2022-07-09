@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <a class="navbar-brand" href="${pageContext.request.contextPath}/admin">
             <img src="../../../images/testingUA.png" alt="logo" style="width: 40px">
-            TestingUA (Admin)
+            TestingUA <span style="color: #ababab; padding-left: 5px;">(Admin)</span>
         </a>
         <button
                 class="navbar-toggler"
