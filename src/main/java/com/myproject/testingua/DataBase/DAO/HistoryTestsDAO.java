@@ -23,6 +23,7 @@ public class HistoryTestsDAO {
     private static final String SQL_FIND_ALL_TEST_HISTORY_RECORDS_BY_STUD_ID = "SELECT * FROM history WHERE stud_id=?";
     private static final String SQL_INSERT_RECORD_OF_HISTORY = "INSERT INTO history (stud_id, test_id, result_score, progress) " +
             "VALUES (?, ?, ?, ?)";
+    private static final String SQL_DELETE_HISTORY_RECORDS_BY_TEST_ID = "DELETE FROM history WHERE test_id=?";
     private static final String SQL_UPDATE_RESULT_TEST = "UPDATE history SET result_score=?, progress=?, date_time=DEFAULT " +
             "WHERE stud_id=? AND test_id=?";
 
@@ -49,6 +50,15 @@ public class HistoryTestsDAO {
         } finally {
             ConnectionPool.close(pstmt);
             ConnectionPool.close(con);
+        }
+    }
+    public static void deleteRecordsOfHistoryByTestID(Connection con, int testID) throws DBException {
+        try {
+            PreparedStatement pstmt = con.prepareStatement(SQL_DELETE_HISTORY_RECORDS_BY_TEST_ID);
+            pstmt.setInt(1, testID);
+            pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            throw new DBException("Cannot delete history records by test id", ex);
         }
     }
 

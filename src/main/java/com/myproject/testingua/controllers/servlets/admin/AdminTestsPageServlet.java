@@ -19,6 +19,8 @@ import java.util.List;
 @WebServlet(name = "AdminTestsPageServlet", value = "/admin/tests")
 public class AdminTestsPageServlet extends HttpServlet {
 
+    private static final long serialVersionUID = -7564144262203584805L;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

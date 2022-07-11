@@ -265,7 +265,7 @@
                                 type="button" class="btn btn-link btn-sm btn-rounded">
                             Edit
                         </button>
-                        <form action=""
+                        <form action="${pageContext.request.contextPath}/admin/tests/delete?entity=test&testID=${test.id}"
                               method="post"
                               class="mb-0">
                             <button style="color: #e30000"

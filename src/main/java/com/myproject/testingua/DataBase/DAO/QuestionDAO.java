@@ -25,6 +25,15 @@ public class QuestionDAO {
     private static final String SQL_FIND_QUESTION_BY_ID = "SELECT * FROM questions WHERE \"ID\"=?";
     private static final String SQL_FIND_ALL_QUESTIONS_BY_TEST_ID = "SELECT * FROM questions WHERE test_id=?";
     private static final String SQL_UPDATE_QUESTION = "UPDATE questions SET question_text=? WHERE \"ID\"=?";
+    private static final String SQL_DELETE_QUESTION_BY_ID = "DELETE FROM questions WHERE \"ID\"=?";
+    private static final String SQL_DELETE_QUESTIONS_BY_TEST_ID =
+            "WITH q AS (" +
+                    "DELETE FROM questions WHERE test_id=? " +
+                    "RETURNING \"ID\"" +
+                    ")" +
+            "DELETE FROM answers " +
+            "USING q " +
+            "WHERE question_id = q.\"ID\"";
 
     public boolean insertQuestion(String questionText, int testID) throws DBException {
         Connection con = null;
@@ -51,11 +60,42 @@ public class QuestionDAO {
         }
         return (check > 0);
     }
-
-    public boolean updateQuestion(String newQuestion, int questionID) throws DBException {
+    public void deleteQuestionByID(int id) throws DBException {
         Connection con = null;
         PreparedStatement pstmt = null;
-        int check;
+
+        try {
+            con = pool.getConnection();
+            con.setAutoCommit(false);
+
+            AnswerDAO.deleteAnswersByQuestionID(con, id);
+
+            pstmt = con.prepareStatement(SQL_DELETE_QUESTION_BY_ID);
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+
+            con.commit();
+        } catch (SQLException ex) {
+            ConnectionPool.rollback(con);
+            throw new DBException("Cannot delete question by id", ex);
+        } finally {
+            ConnectionPool.close(pstmt);
+            ConnectionPool.close(con);
+        }
+    }
+    public static void deleteQuestionsByTestID(Connection con, int testID) throws DBException {
+        try {
+            PreparedStatement pstmt = con.prepareStatement(SQL_DELETE_QUESTIONS_BY_TEST_ID);
+            pstmt.setInt(1, testID);
+            pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            throw new DBException("Cannot delete question by test id", ex);
+        }
+    }
+
+    public void updateQuestion(String newQuestion, int questionID) throws DBException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
 
         try {
             con = pool.getConnection();
@@ -65,7 +105,7 @@ public class QuestionDAO {
             int c = 0;
             pstmt.setString(++c, newQuestion);
             pstmt.setInt(++c, questionID);
-            check = pstmt.executeUpdate();
+            pstmt.executeUpdate();
 
             con.commit();
         } catch (SQLException ex) {
@@ -75,7 +115,6 @@ public class QuestionDAO {
             ConnectionPool.close(pstmt);
             ConnectionPool.close(con);
         }
-        return (check > 0);
     }
 
     public Question findQuestionByID(int id) throws DBException{

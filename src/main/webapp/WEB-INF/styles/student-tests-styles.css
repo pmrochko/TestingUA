@@ -55,11 +55,38 @@ main table {
 
 main {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 70%;
+    padding-top: 2%;
+    padding-bottom: 2%;
     background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(14,174,87,1) 0%, rgba(12,116,117,1) 90% );
 }
+
+nav.pagination-nav {
+    margin-top: 2%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+ul.pagination li a{
+    color: black;
+    border: 1px rgba(0, 0, 0, 0.5) solid;
+    border-radius: 0;
+    background: radial-gradient( circle farthest-corner at 10% 20%, rgb(180, 166, 74) 0%, rgb(148, 97, 66) 90% );
+    text-decoration: none;
+}
+
+    ul.pagination li a:hover{
+        color: white;
+        border-color: #3db98d;
+    }
+
+    ul.pagination li a:focus, ul.pagination li a:active{
+        color: white;
+        border-color: #3db98d;
+    }
 
 .table-th {
     user-select: none;

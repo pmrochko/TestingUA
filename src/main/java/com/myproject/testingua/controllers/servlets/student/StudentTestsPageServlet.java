@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,10 +54,33 @@ public class StudentTestsPageServlet extends HttpServlet {
 
         if (subjects != null && tests != null) {
             session.setAttribute("subjectsList", subjects);
-            request.setAttribute("testsList", tests);
-        }
-        request.getRequestDispatcher(Path.STUDENT_TESTS_PAGE).forward(request, response);
 
+            // pagination
+            int page = 1;
+            int recordsPerPage = 7;
+            int totalCountOfPages = (int) Math.ceil(tests.size() * 1.0 / recordsPerPage);
+
+            if (request.getParameter("page") != null) {
+                page = Integer.parseInt(request.getParameter("page"));
+            }
+
+            int fromIndex = (page - 1) * recordsPerPage;
+            int toIndex = fromIndex + recordsPerPage;
+            List<Test> resultList = new ArrayList<>();
+
+            if (toIndex <= tests.size()) {
+                resultList = tests.subList(fromIndex, toIndex);
+            } else {
+                resultList = tests.subList(fromIndex, tests.size());
+            }
+
+            request.setAttribute("currentPage", page);
+            request.setAttribute("totalCountOfPages", totalCountOfPages);
+            request.setAttribute("testsList", resultList);
+            request.getRequestDispatcher(Path.STUDENT_TESTS_PAGE).forward(request, response);
+        } else {
+            //error-page
+        }
     }
 
     @Override

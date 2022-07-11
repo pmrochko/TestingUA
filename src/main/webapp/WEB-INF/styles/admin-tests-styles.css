@@ -20,6 +20,10 @@ input#searchForm {
     background-color: #efefef;
 }
 
+main {
+    background-image: radial-gradient( circle farthest-corner at 10% 20%, rgb(175, 110, 56) 0%, rgb(138, 46, 46) 90% );
+}
+
 main table {
     max-width: 90%;
     margin-left: auto;

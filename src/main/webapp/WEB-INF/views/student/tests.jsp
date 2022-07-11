@@ -205,6 +205,34 @@
             </c:forEach>
             </tbody>
         </table>
+
+        <nav class="pagination-nav" aria-label="Page navigation example">
+            <ul class="pagination">
+
+                <c:if test="${requestScope.currentPage > 1}">
+                    <li class="page-item">
+                        <a class="page-link" href="http://localhost:8080/student/tests?page=${requestScope.currentPage-1}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                </c:if>
+
+                <c:forEach begin="1" end="${requestScope.totalCountOfPages}" var="page">
+                    <li class="page-item"><a class="page-link" href="http://localhost:8080/student/tests?page=${page}">${page}</a></li>
+                </c:forEach>
+
+                <c:if test="${requestScope.currentPage < requestScope.totalCountOfPages}">
+                    <li class="page-item">
+                        <a class="page-link" href="http://localhost:8080/student/tests?page=${requestScope.currentPage+1}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </c:if>
+
+            </ul>
+        </nav>
     </main>
 
     <footer class="footer">

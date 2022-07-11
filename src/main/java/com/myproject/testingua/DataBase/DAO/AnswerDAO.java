@@ -23,6 +23,8 @@ public class AnswerDAO {
     private static final String SQL_FIND_ANSWER_BY_ID = "SELECT * FROM answers WHERE \"ID\"=?";
     private static final String SQL_FIND_ALL_ANSWERS_BY_QUESTION_ID = "SELECT * FROM answers WHERE question_id=?";
     private static final String SQL_UPDATE_ANSWER = "UPDATE answers SET answer_status=?, answer_text=? WHERE \"ID\"=?";
+    private static final String SQL_DELETE_ANSWER_BY_ID = "DELETE FROM answers WHERE \"ID\"=?";
+    private static final String SQL_DELETE_ANSWERS_BY_QUESTION_ID = "DELETE FROM answers WHERE question_id=?";
 
     public boolean insertAnswer(int questionID, String answerStatus, String answerText) throws DBException {
         Connection con = null;
@@ -49,6 +51,36 @@ public class AnswerDAO {
             ConnectionPool.close(con);
         }
         return (check > 0);
+    }
+    public void deleteAnswerByID(int id) throws DBException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            con = pool.getConnection();
+            con.setAutoCommit(false);
+
+            pstmt = con.prepareStatement(SQL_DELETE_ANSWER_BY_ID);
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+
+            con.commit();
+        } catch (SQLException e) {
+            ConnectionPool.rollback(con);
+            throw new DBException("Cannot delete answer by id", e);
+        } finally {
+            ConnectionPool.close(pstmt);
+            ConnectionPool.close(con);
+        }
+    }
+    public static void deleteAnswersByQuestionID(Connection con, int questionID) throws DBException {
+        try {
+            PreparedStatement pstmt = con.prepareStatement(SQL_DELETE_ANSWERS_BY_QUESTION_ID);
+            pstmt.setInt(1, questionID);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new DBException("Cannot delete answers by question id", e);
+        }
     }
 
     public boolean updateAnswer(String newAnswer, String newStatus, int answerID) throws DBException {

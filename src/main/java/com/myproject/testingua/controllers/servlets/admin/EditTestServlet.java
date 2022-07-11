@@ -14,6 +14,9 @@ import java.io.IOException;
 
 @WebServlet(name = "EditTestServlet", value = "/admin/tests/edit")
 public class EditTestServlet extends HttpServlet {
+
+    private static final long serialVersionUID = -3638584086711159799L;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -29,7 +32,7 @@ public class EditTestServlet extends HttpServlet {
                     request.getRequestDispatcher(Path.ADMIN_EDIT_TEST_PAGE).forward(request, response);
                 } else {
                     // error-page
-                    request.getRequestDispatcher("/admin/tests").forward(request, response);
+                    request.getRequestDispatcher(Path.ADMIN_TESTS_PAGE).forward(request, response);
                 }
             } catch (DBException e) {
                 e.printStackTrace();
@@ -38,7 +41,7 @@ public class EditTestServlet extends HttpServlet {
 
         } else {
             //error-page
-            request.getRequestDispatcher("/admin/tests").forward(request, response);
+            request.getRequestDispatcher(Path.ADMIN_TESTS_PAGE).forward(request, response);
         }
     }
 

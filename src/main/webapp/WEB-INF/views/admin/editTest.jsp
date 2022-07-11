@@ -326,7 +326,7 @@
                                 type="button" class="btn btn-link btn-sm btn-rounded">
                             Edit
                         </button>
-                        <form action=""
+                        <form action="${pageContext.request.contextPath}/admin/tests/delete?entity=question&entityID=${question.id}&testID=${requestScope.editingTest.id}"
                               method="post"
                               class="mb-0">
                             <button style="color: #e30000"
@@ -427,7 +427,7 @@
                                    type="submit" value="✓" hidden="hidden"/>
                         </form>
 
-                            <form action=""
+                            <form action="${pageContext.request.contextPath}/admin/tests/delete?entity=answer&entityID=${answer.id}&testID=${requestScope.editingTest.id}"
                                   method="post"
                                   class="mb-0">
                                 <button style="color: #e30000"

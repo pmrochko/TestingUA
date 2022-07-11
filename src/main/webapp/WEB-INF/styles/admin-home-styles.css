@@ -5,7 +5,6 @@ main {
     align-items: center;
     justify-content: center;
     background-image: radial-gradient( circle farthest-corner at 10% 20%, rgb(175, 110, 56) 0%, rgb(138, 46, 46) 90% );
-
 }
 
 .card {

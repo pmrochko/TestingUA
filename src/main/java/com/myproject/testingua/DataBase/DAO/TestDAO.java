@@ -21,6 +21,7 @@ public class TestDAO {
 
     private static final String SQL_INSERT_TEST = "INSERT INTO tests (subject_id, title, description, difficulty, time) " +
             "VALUES (?, ?, ?, ?, ?)";
+    private static final String SQL_DELETE_TEST_BY_ID = "DELETE FROM tests WHERE \"ID\"=?";
     private static final String SQL_FIND_TEST_BY_ID = "SELECT * FROM tests WHERE \"ID\"=?";
     private static final String SQL_FIND_ALL_TESTS = "SELECT * FROM tests";
 
@@ -57,6 +58,32 @@ public class TestDAO {
         }
 
         return (check > 0);
+    }
+    public void deleteTestByID(int id) throws DBException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            con = pool.getConnection();
+            con.setAutoCommit(false);
+
+            // delete all questions of this test
+            QuestionDAO.deleteQuestionsByTestID(con, id);
+            // delete all history records of this test
+            HistoryTestsDAO.deleteRecordsOfHistoryByTestID(con, id);
+
+            pstmt = con.prepareStatement(SQL_DELETE_TEST_BY_ID);
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+
+            con.commit();
+        } catch (SQLException ex) {
+            ConnectionPool.rollback(con);
+            throw new DBException("Cannot delete test by id", ex);
+        } finally {
+            ConnectionPool.close(pstmt);
+            ConnectionPool.close(con);
+        }
     }
 
     public boolean updateTest(int newSubjectID, String newTitle, String newDescription, String newDifficulty, Double newTime, int id)
