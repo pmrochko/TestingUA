@@ -6,6 +6,7 @@ import com.myproject.testingua.models.enums.AnswerStatus;
 import com.myproject.testingua.models.enums.QuestionStatus;
 import com.myproject.testingua.models.enums.TestDifficulty;
 
+import java.sql.Time;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -18,14 +19,14 @@ public class Test extends Entity{
     private String title;
     private String description;
     private TestDifficulty difficulty;
-    private double time;                        // in minutes
+    private Time time;
     private List<Question> questionsList;
 
     public Test() {
         super();
     }
 
-    public Test(int id, Subject subject, String title, String description, TestDifficulty difficulty, double time) {
+    public Test(int id, Subject subject, String title, String description, TestDifficulty difficulty, Time time) {
         super(id);
         this.subject = subject;
         this.title = title;
@@ -58,10 +59,10 @@ public class Test extends Entity{
     public void setDifficulty(TestDifficulty difficulty) {
         this.difficulty = difficulty;
     }
-    public double getTime() {
+    public Time getTime() {
         return time;
     }
-    public void setTime(double time) {
+    public void setTime(Time time) {
         this.time = time;
     }
     public List<Question> getQuestionsList() {

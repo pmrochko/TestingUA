@@ -29,7 +29,7 @@ public class TestDAO {
             "SET subject_id=?, title=?, description=?, difficulty=?, time=?" +
             "WHERE \"ID\"=?";
 
-    public boolean insertTest(int subjectID, String title, String description, String difficulty, double time)
+    public boolean insertTest(int subjectID, String title, String description, String difficulty, Time time)
             throws DBException {
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -45,7 +45,7 @@ public class TestDAO {
             pstmt.setString(++c, title);
             pstmt.setString(++c, description);
             pstmt.setString(++c, difficulty);
-            pstmt.setDouble(++c, time);
+            pstmt.setTime(++c, time);
             check = pstmt.executeUpdate();
 
             con.commit();
@@ -86,7 +86,7 @@ public class TestDAO {
         }
     }
 
-    public boolean updateTest(int newSubjectID, String newTitle, String newDescription, String newDifficulty, Double newTime, int id)
+    public boolean updateTest(int newSubjectID, String newTitle, String newDescription, String newDifficulty, Time newTime, int id)
             throws DBException {
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -102,7 +102,7 @@ public class TestDAO {
             pstmt.setString(++c, newTitle);
             pstmt.setString(++c, newDescription);
             pstmt.setString(++c, newDifficulty);
-            pstmt.setDouble(++c, newTime);
+            pstmt.setTime(++c, newTime);
             pstmt.setInt(++c, id);
 
             check = pstmt.executeUpdate();
@@ -179,7 +179,7 @@ public class TestDAO {
         test.setTitle(rs.getString("title"));
         test.setDescription(rs.getString("description"));
         test.setDifficulty(TestDifficulty.valueOf(rs.getString("difficulty")));
-        test.setTime(rs.getDouble("time"));
+        test.setTime(rs.getTime("time"));
 
         List<Question> questions = new QuestionDAO().findAllQuestionsByTestID(id);
         test.setQuestionsList(questions);

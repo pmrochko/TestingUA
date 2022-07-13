@@ -58,7 +58,7 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 70%;
+    min-height: 74%;
     padding-top: 2%;
     padding-bottom: 2%;
     background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(14,174,87,1) 0%, rgba(12,116,117,1) 90% );

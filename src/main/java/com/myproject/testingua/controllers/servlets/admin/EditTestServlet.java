@@ -6,11 +6,13 @@ import com.myproject.testingua.DataBase.DAO.TestDAO;
 import com.myproject.testingua.DataBase.DBException;
 import com.myproject.testingua.controllers.Path;
 import com.myproject.testingua.models.entity.Test;
+import com.myproject.testingua.models.enums.AnswerStatus;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.sql.Time;
 
 @WebServlet(name = "EditTestServlet", value = "/admin/tests/edit")
 public class EditTestServlet extends HttpServlet {
@@ -72,7 +74,7 @@ public class EditTestServlet extends HttpServlet {
                                     updateTitle,
                                     updateDescription,
                                     updateDifficulty,
-                                    Double.parseDouble(updateTime),
+                                    Time.valueOf(updateTime),
                                     Integer.parseInt(id)
                                     );
                         } catch (DBException e) {
@@ -119,23 +121,15 @@ public class EditTestServlet extends HttpServlet {
 
                         break;
 
-                    case "setQuestionID":
-                        String qID = request.getParameter("qID");
-
-                        if (qID != null && !qID.isBlank()) {
-                            session.setAttribute("selectedQuestion", qID);
-                        }
-
-                        break;
-
                     case "addAnswer":
-                        String selectedQuestion = (String) session.getAttribute("selectedQuestion");
+                        String selectedQuestion = request.getParameter("questionID");
                         String answerText = request.getParameter("answerText");
                         String answerStatusSelect = request.getParameter("answerStatusSelect");
 
                         if (selectedQuestion != null && !selectedQuestion.isBlank() &&
                                 answerText != null && !answerText.isBlank() &&
-                                answerStatusSelect != null && !answerStatusSelect.isBlank()) {
+                                answerStatusSelect != null && !answerStatusSelect.isBlank() &&
+                                AnswerStatus.isValidEnum(answerStatusSelect)) {
 
                             try {
                                 AnswerDAO answerDAO = new AnswerDAO();

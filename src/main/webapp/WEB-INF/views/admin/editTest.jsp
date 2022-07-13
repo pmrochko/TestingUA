@@ -25,109 +25,9 @@
         <%@ include file="../../styles/admin-modal-styles.css" %>
     </style>
 </head>
-<body>
+<body class="bg-dark">
 
     <jsp:include page="/WEB-INF/views/templates/menuAdmin.jsp"/>
-
-    <!----------------------------------Students modal window---------------------------------->
-
-    <div class="modal fade" id="modal-add-question" tabindex="-1" aria-labelledby="modal-add-question-label" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content modalWindow">
-                <button class="btn-close close-modal-btn" style="margin-right: 23%" data-bs-dismiss="modal" aria-label="close"></button>
-                <div class="modal-addTest col-lg-5" style="border-radius: 25px; border: 2px #219d35 solid">
-                    <div class="card-body p-md-3 mx-md-5">
-
-                        <div class="text-center">
-                            <h4 class="mt-1 mb-4">Adding new question</h4>
-                        </div>
-
-                        <form action="${pageContext.request.contextPath}/admin/tests/edit?action=addQuestion&id=${requestScope.editingTest.id}" method="post">
-                            <div class="form-outline mb-3">
-                                <textarea rows="6" name="question" class="form-control"></textarea>
-                            </div>
-
-                            <div class="text-center pt-1">
-                                <button class="btn btn-primary btn-block fa-lg mb-2 text-black"
-                                        style="background-color: #ababab; border: 1px grey solid" type="reset">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eraser-fill" viewBox="0 0 16 16">
-                                        <path d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828l6.879-6.879zm.66 11.34L3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293l.16-.16z"></path>
-                                    </svg>
-                                    Reset
-                                </button>
-                            </div>
-                            <div class="text-center mb-4">
-                                <button class="btn btn-primary btn-block fa-lg mb-3 text-black"
-                                        style="background-color: #219d35; border: 1px grey solid" type="submit">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                         fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
-                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
-                                    </svg>
-                                    Add
-                                </button>
-                            </div>
-                        </form>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="modal-add-answer" tabindex="-1" aria-labelledby="modal-add-answer-label" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content modalWindow">
-                <button class="btn-close close-modal-btn" style="margin-right: 23%" data-bs-dismiss="modal" aria-label="close"></button>
-                <div class="modal-addTest col-lg-5" style="border-radius: 25px; border: 2px #f29263 solid">
-                    <div class="card-body p-md-3 mx-md-5">
-
-                        <div class="text-center">
-                            <h4 class="mt-1 mb-4">Adding new answer</h4>
-                        </div>
-
-                        <form action="${pageContext.request.contextPath}/admin/tests/edit?action=addAnswer&id=${requestScope.editingTest.id}"
-                              method="post">
-
-                            <div class="form-outline mb-3">
-                                <textarea rows="5" name="answerText" class="form-control"></textarea>
-                            </div>
-
-                            <select name="answerStatusSelect" class="form-select m-b-15" aria-label="status selecting">
-                                <option selected>Status</option>
-                                <option style="color: green" value="RIGHT">Right</option>
-                                <option style="color: red" value="WRONG">Wrong</option>
-                            </select>
-
-                            <div class="text-center pt-1">
-                                <button class="btn btn-primary btn-block fa-lg mb-2 text-black"
-                                        style="background-color: #ababab; border: 1px grey solid" type="reset">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eraser-fill" viewBox="0 0 16 16">
-                                        <path d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828l6.879-6.879zm.66 11.34L3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293l.16-.16z"></path>
-                                    </svg>
-                                    Reset
-                                </button>
-                            </div>
-                            <div class="text-center mb-4">
-                                <button class="btn btn-primary btn-block fa-lg mb-3 text-black"
-                                        style="background-color: #f29263; border: 1px grey solid" type="submit">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                         fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
-                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
-                                    </svg>
-                                    Add
-                                </button>
-                            </div>
-                        </form>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!----------------------------------------------------------------------------------------->
 
     <form id="updateTest" action="${pageContext.request.contextPath}/admin/tests/edit?action=updateTest&id=${requestScope.editingTest.id}" method="post">
         <table class="table table-bordered">
@@ -189,9 +89,9 @@
                         </c:choose>
                     </select>
                 </td>
-                <td>Time (min.):
+                <td>Time:
                     <div class="form-outline mb-3">
-                        <input value="${requestScope.editingTest.time}" type="number" name="time" id="editTime" class="form-control"/>
+                        <input value="${requestScope.editingTest.time}" type="time" step="1" name="time" id="editTime" class="form-control"/>
                     </div>
                 </td>
             </tr>
@@ -354,16 +254,15 @@
                     <th>Status</th>
                     <th>
                         Actions
-                        <form action="${pageContext.request.contextPath}/admin/tests/edit?action=setQuestionID&id=${requestScope.editingTest.id}&qID=${question.id}" method="post">
-                            <button value="${question.id}"
-                                    type="submit" class="btn btn-warning btn-rounded">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                     fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
-                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
-                                </svg>
-                            </button>
-                        </form>
+                        <button data-bs-toggle="modal" data-bs-target="#modal-add-answer"
+                                data-id="${question.id}"
+                                type="submit" class="addAnswerButton btn btn-warning btn-rounded">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                 fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
+                            </svg>
+                        </button>
                     </th>
                 </tr>
                 <c:forEach var="answer" items="${question.answersList}">
@@ -452,6 +351,109 @@
         <jsp:include page="../templates/footer.jsp"/>
     </footer>
 
+    <!----------------------------------Students modal window---------------------------------->
+
+    <div class="modal fade" id="modal-add-question" tabindex="-1" aria-labelledby="modal-add-question-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content modalWindow">
+                <button class="btn-close close-modal-btn" style="margin-right: 23%" data-bs-dismiss="modal" aria-label="close"></button>
+                <div class="modal-addTest col-lg-5" style="border-radius: 25px; border: 2px #219d35 solid">
+                    <div class="card-body p-md-3 mx-md-5">
+
+                        <div class="text-center">
+                            <h4 class="mt-1 mb-4">Adding new question</h4>
+                        </div>
+
+                        <form action="${pageContext.request.contextPath}/admin/tests/edit?action=addQuestion&id=${requestScope.editingTest.id}" method="post">
+                            <div class="form-outline mb-3">
+                                <textarea rows="6" name="question" class="form-control"></textarea>
+                            </div>
+
+                            <div class="text-center pt-1">
+                                <button class="btn btn-primary btn-block fa-lg mb-2 text-black"
+                                        style="background-color: #ababab; border: 1px grey solid" type="reset">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eraser-fill" viewBox="0 0 16 16">
+                                        <path d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828l6.879-6.879zm.66 11.34L3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293l.16-.16z"></path>
+                                    </svg>
+                                    Reset
+                                </button>
+                            </div>
+                            <div class="text-center mb-4">
+                                <button class="btn btn-primary btn-block fa-lg mb-3 text-black"
+                                        style="background-color: #219d35; border: 1px grey solid" type="submit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                         fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
+                                    </svg>
+                                    Add
+                                </button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-add-answer" tabindex="-1" aria-labelledby="modal-add-answer-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content modalWindow">
+                <button class="btn-close close-modal-btn" style="margin-right: 23%" data-bs-dismiss="modal" aria-label="close"></button>
+                <div class="modal-addTest col-lg-5" style="border-radius: 25px; border: 2px #f29263 solid">
+                    <div class="card-body p-md-3 mx-md-5">
+
+                        <div class="text-center">
+                            <h4 class="mt-1 mb-4">Adding new answer</h4>
+                        </div>
+
+                        <form action="${pageContext.request.contextPath}/admin/tests/edit?action=addAnswer&id=${requestScope.editingTest.id}"
+                              method="post">
+
+                            <input type="text" name="questionID" id="questionID" value="" hidden="hidden">
+
+                            <div class="form-outline mb-3">
+                                <textarea rows="5" name="answerText" class="form-control"></textarea>
+                            </div>
+
+                            <select name="answerStatusSelect" class="form-select m-b-15" aria-label="status selecting">
+                                <option selected>Status</option>
+                                <option style="color: green" value="RIGHT">Right</option>
+                                <option style="color: red" value="WRONG">Wrong</option>
+                            </select>
+
+                            <div class="text-center pt-1">
+                                <button class="btn btn-primary btn-block fa-lg mb-2 text-black"
+                                        style="background-color: #ababab; border: 1px grey solid" type="reset">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eraser-fill" viewBox="0 0 16 16">
+                                        <path d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828l6.879-6.879zm.66 11.34L3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293l.16-.16z"></path>
+                                    </svg>
+                                    Reset
+                                </button>
+                            </div>
+                            <div class="text-center mb-4">
+                                <button class="btn btn-primary btn-block fa-lg mb-3 text-black"
+                                        style="background-color: #f29263; border: 1px grey solid" type="submit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                         fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
+                                    </svg>
+                                    Add
+                                </button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!----------------------------------------------------------------------------------------->
+
+    <%--scripts--%>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
@@ -462,14 +464,9 @@
     <script>
         <%@ include file="../../scripts/edit-question-script.js" %>
         <%@ include file="../../scripts/edit-answer-script.js" %>
+
+        setQuestionIdOnClickAddAnswerButton();
     </script>
 
-    <c:if test="${not empty sessionScope.selectedQuestion}">
-        <script type="text/javascript">
-            $(document).ready(function(){
-                $("#modal-add-answer").modal('show');
-            });
-        </script>
-    </c:if>
 </body>
 </html>

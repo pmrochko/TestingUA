@@ -21,6 +21,7 @@ input#searchForm {
 }
 
 main {
+    min-height: 82%;
     background-image: radial-gradient( circle farthest-corner at 10% 20%, rgb(175, 110, 56) 0%, rgb(138, 46, 46) 90% );
 }
 

@@ -1,3 +1,12 @@
+form#updateTest {
+    background-color: white;
+    padding: 1%;
+}
+
+main {
+    min-height: 40% !important;
+}
+
 .button-submit-edit-question {
     background-color: white;
     border: 1px #31e300 solid;

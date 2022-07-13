@@ -67,8 +67,8 @@
                             </select>
 
                             <div class="form-outline mb-3">
-                                <input type="number" name="time" id="time" class="form-control"/>
-                                <label class="form-label" for="time">Time (min.)</label>
+                                <input type="time" step="1" value="00:00:00" name="time" id="time" class="form-control"/>
+                                <label class="form-label" for="time">Time</label>
                             </div>
 
                             <div class="text-center pt-1">
@@ -202,7 +202,7 @@
                     </span>
                 </th>
                 <th class="table-th" onclick="sortTable(4)">
-                    Time (min.)
+                    Time
                     <span class="sort-picture" id="sort-up4" hidden="hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-up" viewBox="0 0 16 16">
                             <path d="M3.5 12.5a.5.5 0 0 1-1 0V3.707L1.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.498.498 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L3.5 3.707V12.5zm3.5-9a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"></path>
@@ -257,7 +257,14 @@
                     </td>
 
                     <td>
-                        ${test.time}
+                        <c:choose>
+                            <c:when test="${test.time == '00:00:00'}">
+                                <span style="color:#29c000;">UNLIM</span>
+                            </c:when>
+                            <c:otherwise>
+                                ${test.time}
+                            </c:otherwise>
+                        </c:choose>
                     </td>
 
                     <td>

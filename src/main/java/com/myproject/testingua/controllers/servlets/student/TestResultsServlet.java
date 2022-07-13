@@ -79,7 +79,6 @@ public class TestResultsServlet extends HttpServlet {
             resultMap.put(question, answersID);
         }
 
-        System.out.println(resultMap);
         long resultScore = 0;
         try {
             resultScore = Test.calculationResult(resultMap);
@@ -87,7 +86,6 @@ public class TestResultsServlet extends HttpServlet {
             e.printStackTrace();
             // error-page
         }
-        System.out.println(resultScore);
 
         session.setAttribute("testResult", resultScore);
 

@@ -14,3 +14,10 @@ function edit_answer(answer_id) {
         else elem.setAttribute('hidden', 'hidden')
     });
 }
+
+function setQuestionIdOnClickAddAnswerButton() {
+    $(document).on("click", ".addAnswerButton", function () {
+        var questionID = $(this).data('id');
+        $("#questionID").val(questionID);
+    });
+}

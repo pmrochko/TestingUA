@@ -23,7 +23,7 @@
         <%@ include file="../../styles/student-tests-styles.css" %>
     </style>
 </head>
-<body>
+<body class="bg-dark">
 
     <jsp:include page="/WEB-INF/views/templates/menuStudent.jsp"/>
 
