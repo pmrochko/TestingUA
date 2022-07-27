@@ -70,8 +70,8 @@ public class PDFBuilder {
 
             document.close();
 
-            String filename = "Test Result" + test.getSubject().getName() +
-                    test.getTitle() +
+            String filename = "result_" + test.getSubject().getName() + "_" +
+                    test.getTitle() + "_" +
                     LocalDate.now();
 
             openInBrowser(response, baos, filename);

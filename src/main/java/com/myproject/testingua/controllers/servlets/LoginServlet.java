@@ -3,7 +3,7 @@ package com.myproject.testingua.controllers.servlets;
 import com.myproject.testingua.DataBase.DAO.UserDAO;
 import com.myproject.testingua.DataBase.DBException;
 import com.myproject.testingua.models.entity.User;
-import com.myproject.testingua.models.enums.UserRoles;
+import com.myproject.testingua.models.enums.UserRole;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -35,22 +35,16 @@ public class LoginServlet extends HttpServlet {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
-        if (login == null || password == null || login.isEmpty() || password.isEmpty()) {
+        if (login == null || password == null || login.isBlank() || password.isBlank()) {
+
             session.setAttribute("loginStatus", "empty");
             response.sendRedirect("/");
-        } else {
-            UserDAO userDAO = null;
-            try {
-                userDAO = new UserDAO();
-            } catch (DBException e) {
-                session.setAttribute("errorMessage", e.getMessage());
-                response.sendRedirect("/login?page=error");
-                return;
-            }
-            User user = null;
 
+        } else {
+
+            User user = null;
             try {
-                user = userDAO.findUserByLogin(login);
+                user = new UserDAO().findUserByLogin(login);
             } catch (DBException e) {
                 session.setAttribute("errorMessage", e.getMessage());
                 response.sendRedirect("/login?page=error");
@@ -64,7 +58,7 @@ public class LoginServlet extends HttpServlet {
                 } else {
                     session.setAttribute("loginStatus", "success");
                     session.setAttribute("currentUser", user);
-                    if (user.getRole() == UserRoles.ADMIN)
+                    if (user.getRole() == UserRole.ADMIN)
                         response.sendRedirect("/admin");
                     else
                         response.sendRedirect("/student");

@@ -121,7 +121,7 @@
     <c:if test="${sessionScope.startedTest.time != '00:00:00'}">
         <script>
             <%@ include file="../../scripts/timer-script.js" %>
-            setTimer(${sessionScope.startedTest.time.hours}, ${sessionScope.startedTest.time.minutes}, ${sessionScope.startedTest.time.seconds})
+            setTimer(${sessionScope.startedTest.time.hours}, ${sessionScope.startedTest.time.minutes}, ${sessionScope.startedTest.time.seconds});
         </script>
     </c:if>
 

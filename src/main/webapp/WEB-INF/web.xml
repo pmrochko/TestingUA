@@ -31,4 +31,15 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <!--Security filters-->
+    <filter-mapping>
+        <filter-name>AdminSecurityFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>StudentSecurityFilter</filter-name>
+        <url-pattern>/student/*</url-pattern>
+    </filter-mapping>
+
 </web-app>

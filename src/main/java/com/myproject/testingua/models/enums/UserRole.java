@@ -1,6 +1,6 @@
 package com.myproject.testingua.models.enums;
 
-public enum UserRoles {
+public enum UserRole {
 
     STUDENT, ADMIN
 

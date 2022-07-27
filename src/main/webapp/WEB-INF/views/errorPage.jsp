@@ -8,9 +8,8 @@
 
         ERROR!
 
-        <c:if test="${not empty sessionScope.errorMessage}">
-            MESSAGE: ${sessionScope.errorMessage}
-            <c:remove var="errorMessage" scope="session"/>
+        <c:if test="${not empty requestScope.errorMessage}">
+            MESSAGE: ${requestScope.errorMessage}
         </c:if>
 
 </body>

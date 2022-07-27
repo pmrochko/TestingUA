@@ -15,6 +15,20 @@
     <style>
         <%@ include file="/WEB-INF/styles/index-styles.css" %>
     </style>
+    <c:if test="${not empty sessionScope.currentUser}">
+        <c:choose>
+            <c:when test="${sessionScope.currentUser.role.name() == 'STUDENT'}">
+                <script>
+                    document.location='http://localhost:8080/student';
+                </script>
+            </c:when>
+            <c:when test="${sessionScope.currentUser.role.name() == 'ADMIN'}">
+                <script>
+                    document.location='http://localhost:8080/admin';
+                </script>
+            </c:when>
+        </c:choose>
+    </c:if>
 </head>
 <body>
 
@@ -22,6 +36,32 @@
         <img src="images/testingUA.png" alt="logo" style="width: 40px">
         TestingUA
     </a>
+
+    <div class="language-menu dropdown">
+        <button
+                class="btn btn-info dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-mdb-toggle="dropdown"
+                aria-expanded="false"
+        >
+            Language
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li>
+                <a class="dropdown-item" href="#">
+                    <img src="images/en-lang.png" style="width: 20px;" alt="en">
+                    English
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="#">
+                    <img src="images/uk-lang.png" style="width: 20px;" alt="uk">
+                    Ukrainian
+                </a>
+            </li>
+        </ul>
+    </div>
 
     <div class="start-content">
         <!-- Pills navs -->
@@ -67,13 +107,13 @@
                 <form action="${pageContext.request.contextPath}/login" method="post">
                     <!-- Login input -->
                     <div class="form-outline mb-4">
-                        <input name="login" type="text" id="loginName" class="form-control" />
+                        <input name="login" type="text" id="loginName" class="form-control" required/>
                         <label class="form-label" for="loginName">Login</label>
                     </div>
 
                     <!-- Password input -->
                     <div class="form-outline mb-6">
-                        <input name="password" type="password" id="loginPassword" class="form-control" />
+                        <input name="password" type="password" id="loginPassword" class="form-control" required/>
                         <label class="form-label" for="loginPassword">Password</label>
                     </div>
 
@@ -94,7 +134,7 @@
                     </div>
 
                     <!-- Submit button -->
-                    <input type="submit" value="Sign in" class="btn btn-primary btn-block mb-4"/>
+                    <input id="signIn" type="submit" value="Sign in" class="btn btn-primary btn-block mb-4"/>
 
                     <!-- Register buttons -->
                     <div class="text-center">
@@ -105,49 +145,56 @@
             </div>
             <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
                 <form action="${pageContext.request.contextPath}/registration" method="post">
-                    <div class="mb-3 " style="text-align: center;">
+                    <div id="regFormMessage" class="mb-3" style="text-align: center;">
                         Filling out the registration form
                     </div>
                     <!-- Name input -->
                     <div class="form-outline mb-4">
-                        <input name="name" type="text" id="registerName" class="form-control" />
+                        <input name="name" type="text" id="registerName" class="form-control"
+                               required autocomplete="off"/>
                         <label class="form-label" for="registerName">Name</label>
                     </div>
 
                     <!-- Surname input -->
                     <div class="form-outline mb-4">
-                        <input name="surname" type="text" id="registerUsername" class="form-control" />
-                        <label class="form-label" for="registerUsername">Surname</label>
+                        <input name="surname" type="text" id="registerSurname" class="form-control"
+                               required autocomplete="off"/>
+                        <label class="form-label" for="registerSurname">Surname</label>
                     </div>
 
                     <!-- Login input -->
                     <div class="form-outline mb-4">
-                        <input name="login" type="text" id="registerLogin" class="form-control" />
+                        <input name="login" type="text" id="registerLogin" class="form-control"
+                               required autocomplete="off"/>
                         <label class="form-label" for="registerLogin">Login</label>
                     </div>
 
                     <!-- Email input -->
                     <div class="form-outline mb-4">
-                        <input name="email" type="email" id="registerEmail" class="form-control" />
+                        <input name="email" type="email" id="registerEmail" class="form-control"
+                               required autocomplete="off"/>
                         <label class="form-label" for="registerEmail">Email</label>
                     </div>
 
                     <!-- Password input -->
                     <div class="form-outline mb-4">
-                        <input name="password" type="password" id="registerPassword" class="form-control" />
+                        <input name="password" type="password" id="registerPassword" class="form-control"
+                               required autocomplete="off"/>
                         <label class="form-label" for="registerPassword">Password</label>
                     </div>
 
                     <!-- Repeat Password input -->
                     <div class="form-outline mb-4">
-                        <input name="repeatPassword" type="password" id="registerRepeatPassword" class="form-control" />
+                        <input name="repeatPassword" type="password" id="registerRepeatPassword" class="form-control"
+                               required autocomplete="off"/>
                         <label class="form-label" for="registerRepeatPassword">Repeat password</label>
                     </div>
 
                     <!-- Checkbox -->
                     <div class="form-check d-flex justify-content-center mb-4">
                         <input name="checkbox" class="form-check-input me-2" type="checkbox" value="" id="registerCheck"
-                               aria-describedby="registerCheckHelpText" />
+                               aria-describedby="registerCheckHelpText"
+                               required autocomplete="off"/>
                         <label class="form-check-label" for="registerCheck">
                             I have read and agree to the terms
                         </label>
@@ -156,6 +203,52 @@
                     <!-- Submit button -->
                     <button type="submit" class="btn btn-primary btn-block mb-3">Sign up</button>
                 </form>
+
+                <c:if test="${not empty sessionScope.invalidInput}">
+                    <c:choose>
+                        <c:when test="${sessionScope.invalidInput == 'name'}">
+                            <script>
+                                let message = document.querySelector('#regFormMessage');
+                                message.textContent = "Invalid name entered";
+                                message.style.color = "red";
+                                document.getElementById('registerName').style.backgroundColor = "#ffe8e8";
+                            </script>
+                        </c:when>
+                        <c:when test="${sessionScope.invalidInput == 'surname'}">
+                            <script>
+                                let message = document.querySelector('#regFormMessage');
+                                message.textContent = "Invalid surname entered";
+                                message.style.color = "red";
+                                document.getElementById('registerSurname').style.backgroundColor = "#ffe8e8";
+                            </script>
+                        </c:when>
+                        <c:when test="${sessionScope.invalidInput == 'login'}">
+                            <script>
+                                let message = document.querySelector('#regFormMessage');
+                                message.textContent = "Invalid login entered";
+                                message.style.color = "red";
+                                document.getElementById('registerLogin').style.backgroundColor = "#ffe8e8";
+                            </script>
+                        </c:when>
+                        <c:when test="${sessionScope.invalidInput == 'email'}">
+                            <script>
+                                let message = document.querySelector('#regFormMessage');
+                                message.textContent = "Invalid email entered";
+                                message.style.color = "red";
+                                document.getElementById('registerEmail').style.backgroundColor = "#ffe8e8";
+                            </script>
+                        </c:when>
+                        <c:when test="${sessionScope.invalidInput == 'password'}">
+                            <script>
+                                let message = document.querySelector('#regFormMessage');
+                                message.textContent = "Invalid password entered";
+                                message.style.color = "red";
+                                document.getElementById('registerPassword').style.backgroundColor = "#ffe8e8";
+                            </script>
+                        </c:when>
+                    </c:choose>
+                </c:if>
+
             </div>
         </div>
     </div>
@@ -165,5 +258,11 @@
             type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.js"
     ></script>
+    <c:if test="${not empty sessionScope.invalidInput}">
+        <script>
+            document.querySelector('#tab-register').click();
+        </script>
+        <c:remove var="invalidInput" scope="session"/>
+    </c:if>
 </body>
 </html>

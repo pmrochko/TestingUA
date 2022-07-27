@@ -2,7 +2,7 @@ package com.myproject.testingua.models.entity;
 
 import com.myproject.testingua.DataBase.DAO.HistoryTestsDAO;
 import com.myproject.testingua.DataBase.DBException;
-import com.myproject.testingua.models.enums.UserRoles;
+import com.myproject.testingua.models.enums.UserRole;
 
 public class User extends Entity{
 
@@ -10,7 +10,7 @@ public class User extends Entity{
 
     private String login;
     private String email;
-    private UserRoles role;
+    private UserRole role;
     private String password;
     private String name;
     private String surname;
@@ -21,7 +21,7 @@ public class User extends Entity{
         super();
     }
 
-    public User(int id, String login, String email, UserRoles role, String password, String name, String surname) {
+    public User(int id, String login, String email, UserRole role, String password, String name, String surname) {
         super(id);
         this.login = login;
         this.email = email;
@@ -43,10 +43,10 @@ public class User extends Entity{
     public void setEmail(String email) {
         this.email = email;
     }
-    public UserRoles getRole() {
+    public UserRole getRole() {
         return role;
     }
-    public void setRole(UserRoles role) {
+    public void setRole(UserRole role) {
         this.role = role;
     }
     public String getPassword() {

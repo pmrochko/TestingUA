@@ -2,9 +2,8 @@ package com.myproject.testingua.DataBase.DAO;
 
 import com.myproject.testingua.DataBase.DBException;
 import com.myproject.testingua.DataBase.ConnectionPool;
-import com.myproject.testingua.models.entity.HistoryOfTest;
 import com.myproject.testingua.models.entity.User;
-import com.myproject.testingua.models.enums.UserRoles;
+import com.myproject.testingua.models.enums.UserRole;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -324,7 +323,7 @@ public class UserDAO {
         user.setId(rs.getInt("ID"));
         user.setLogin(rs.getString("login"));
         user.setEmail(rs.getString("email"));
-        user.setRole(UserRoles.valueOf(rs.getString("role")));
+        user.setRole(UserRole.valueOf(rs.getString("role")));
         user.setPassword(rs.getString("password"));
         user.setName(rs.getString("name"));
         user.setSurname(rs.getString("surname"));

@@ -17,3 +17,9 @@ body {
     top: 10px;
     color: black;
 }
+
+.language-menu {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+}

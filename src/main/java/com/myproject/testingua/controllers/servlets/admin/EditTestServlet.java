@@ -146,7 +146,8 @@ public class EditTestServlet extends HttpServlet {
                             session.setAttribute("addedAnswer", "empty");
                         }
 
-                        if (selectedQuestion != null) session.removeAttribute("selectedQuestion");
+                        session.setAttribute("selectedQuestionID", selectedQuestion);
+                        //if (selectedQuestion != null) session.removeAttribute("selectedQuestion");
                         break;
 
                     case "updateAnswer":

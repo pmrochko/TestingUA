@@ -30,7 +30,7 @@
                 <p class="card-text">
                     - creates, deletes or edits tests;
                     <br>
-                    - blocks, unlocks, edits the user.
+                    - blocks, unlocks, edits the users.
                     <br><br>
                 </p>
             </div>
@@ -53,7 +53,7 @@
                     <br>
                     - complexity of the test;
                     <br>
-                    - adds Questions to the test
+                    - adds questions to the test
                 </p>
             </div>
             <div class="onclick-picture">

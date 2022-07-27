@@ -3,6 +3,7 @@ package com.myproject.testingua.controllers.servlets;
 import com.myproject.testingua.DataBase.DAO.UserDAO;
 import com.myproject.testingua.DataBase.DBException;
 import com.myproject.testingua.models.entity.User;
+import com.myproject.testingua.validation.DataValidator;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -12,6 +13,7 @@ import java.io.IOException;
 @WebServlet(name = "ProfileServlet", value = "/profile")
 public class ProfileServlet extends HttpServlet {
 
+    private static final long serialVersionUID = -7052381877104669441L;
     private final static String EDIT = "edit";
 
     @Override
@@ -37,7 +39,7 @@ public class ProfileServlet extends HttpServlet {
                     switch (choice) {
                         case "surnameForm":
                             value = request.getParameter("surname");
-                            if (value != null && !value.isEmpty()) {
+                            if (value != null && !value.isEmpty() && DataValidator.isValidSurname(value)) {
                                 UserDAO userDAO = new UserDAO();
                                 boolean succ = userDAO.updateUserSurname(value, currUser.getId());
                                 if (succ) { currUser.setSurname(value); }
@@ -45,7 +47,7 @@ public class ProfileServlet extends HttpServlet {
                             break;
                         case "nameForm":
                             value = request.getParameter("name");
-                            if (value != null && !value.isEmpty()) {
+                            if (value != null && !value.isEmpty() && DataValidator.isValidName(value)) {
                                 UserDAO userDAO = new UserDAO();
                                 boolean succ = userDAO.updateUserName(value, currUser.getId());
                                 if (succ) { currUser.setName(value); }
@@ -53,7 +55,7 @@ public class ProfileServlet extends HttpServlet {
                             break;
                         case "emailForm":
                             value = request.getParameter("email");
-                            if (value != null && !value.isEmpty()) {
+                            if (value != null && !value.isEmpty() && DataValidator.isValidEmail(value)) {
                                 UserDAO userDAO = new UserDAO();
                                 boolean succ = userDAO.updateUserEmail(value, currUser.getId());
                                 if (succ) { currUser.setEmail(value); }
@@ -61,7 +63,7 @@ public class ProfileServlet extends HttpServlet {
                             break;
                         case "telForm":
                             value = request.getParameter("tel");
-                            if (value != null && !value.isEmpty()) {
+                            if (value != null && !value.isEmpty() && DataValidator.isValidTel(value)) {
                                 UserDAO userDAO = new UserDAO();
                                 boolean succ = userDAO.updateUserTel(value, currUser.getId());
                                 if (succ) { currUser.setTel(value); }
@@ -69,7 +71,7 @@ public class ProfileServlet extends HttpServlet {
                             break;
                         case "loginForm":
                             value = request.getParameter("login");
-                            if (value != null && !value.isEmpty()) {
+                            if (value != null && !value.isEmpty() && DataValidator.isValidLogin(value)) {
                                 UserDAO userDAO = new UserDAO();
                                 boolean succ = userDAO.updateUserLogin(value, currUser.getId());
                                 if (succ) { currUser.setLogin(value); }
@@ -81,7 +83,8 @@ public class ProfileServlet extends HttpServlet {
                             String repeatNewPass = request.getParameter("repeat-new-pass");
 
                             if ((oldPass != null) && (newPass != null) && (repeatNewPass != null) &&
-                                    (!oldPass.isEmpty()) && (!newPass.isEmpty()) && (!repeatNewPass.isEmpty())) {
+                                    (!oldPass.isEmpty()) && (!newPass.isEmpty()) && (!repeatNewPass.isEmpty()) &&
+                                    (DataValidator.isValidPassword(newPass))) {
 
                                 UserDAO userDAO = new UserDAO();
                                 String checkPass = userDAO.findUserByID(currUser.getId()).getPassword();
