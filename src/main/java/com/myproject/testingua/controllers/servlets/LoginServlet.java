@@ -1,6 +1,6 @@
 package com.myproject.testingua.controllers.servlets;
 
-import com.myproject.testingua.DataBase.DAO.UserDAO;
+import com.myproject.testingua.DataBase.DAO.impl.UserDAOImpl;
 import com.myproject.testingua.DataBase.DBException;
 import com.myproject.testingua.models.entity.User;
 import com.myproject.testingua.models.enums.UserRole;
@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
 
             User user = null;
             try {
-                user = new UserDAO().findUserByLogin(login);
+                user = new UserDAOImpl().findUserByLogin(login);
             } catch (DBException e) {
                 session.setAttribute("errorMessage", e.getMessage());
                 response.sendRedirect("/login?page=error");

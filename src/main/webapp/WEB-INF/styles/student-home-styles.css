@@ -1,3 +1,9 @@
+.language-menu {
+    position: absolute;
+    right: 60px;
+    top: 15px;
+}
+
 main {
     min-height: 82%;
     display: flex;

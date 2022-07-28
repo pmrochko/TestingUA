@@ -1,6 +1,6 @@
 package com.myproject.testingua.models.entity;
 
-import com.myproject.testingua.DataBase.DAO.HistoryTestsDAO;
+import com.myproject.testingua.DataBase.DAO.impl.HistoryTestsDAOImpl;
 import com.myproject.testingua.DataBase.DBException;
 import com.myproject.testingua.models.enums.TestProgressStatus;
 
@@ -56,7 +56,7 @@ public class HistoryOfTest extends Entity {
     public static boolean historyContainRecordedTest(Test test, int studID) throws DBException {
 
         boolean check = false;
-        List<HistoryOfTest> history = new HistoryTestsDAO().findAllTestHistoryRecordsByStudID(studID);
+        List<HistoryOfTest> history = new HistoryTestsDAOImpl().findAllTestHistoryRecordsByStudID(studID);
 
         if (history != null) {
             for (HistoryOfTest record : history) {

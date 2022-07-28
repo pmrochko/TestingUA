@@ -1,3 +1,13 @@
+.language-menu {
+    position: absolute;
+    right: 60px;
+    top: 15px;
+}
+
+    .language-menu button {
+        color: #c46023 !important;
+    }
+
 main {
     min-height: 82%;
     display: flex;

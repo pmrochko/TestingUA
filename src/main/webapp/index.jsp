@@ -37,31 +37,7 @@
         TestingUA
     </a>
 
-    <div class="language-menu dropdown">
-        <button
-                class="btn btn-info dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton"
-                data-mdb-toggle="dropdown"
-                aria-expanded="false"
-        >
-            Language
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <li>
-                <a class="dropdown-item" href="#">
-                    <img src="images/en-lang.png" style="width: 20px;" alt="en">
-                    English
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-item" href="#">
-                    <img src="images/uk-lang.png" style="width: 20px;" alt="uk">
-                    Ukrainian
-                </a>
-            </li>
-        </ul>
-    </div>
+    <jsp:include page="WEB-INF/views/templates/languageSelect.jsp"/>
 
     <div class="start-content">
         <!-- Pills navs -->

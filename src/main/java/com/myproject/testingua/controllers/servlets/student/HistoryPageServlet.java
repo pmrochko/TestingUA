@@ -1,6 +1,6 @@
 package com.myproject.testingua.controllers.servlets.student;
 
-import com.myproject.testingua.DataBase.DAO.HistoryTestsDAO;
+import com.myproject.testingua.DataBase.DAO.impl.HistoryTestsDAOImpl;
 import com.myproject.testingua.DataBase.DBException;
 import com.myproject.testingua.controllers.Path;
 import com.myproject.testingua.models.entity.HistoryOfTest;
@@ -26,7 +26,7 @@ public class HistoryPageServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User currentUser = (User) session.getAttribute("currentUser");
         try {
-            List<HistoryOfTest> records = new HistoryTestsDAO().findAllTestHistoryRecordsByStudID(currentUser.getId());
+            List<HistoryOfTest> records = new HistoryTestsDAOImpl().findAllTestHistoryRecordsByStudID(currentUser.getId());
             request.setAttribute("historyOfTests", records);
         } catch (DBException e) {
             e.printStackTrace();

@@ -1,6 +1,6 @@
 package com.myproject.testingua.controllers.servlets.admin;
 
-import com.myproject.testingua.DataBase.DAO.UserDAO;
+import com.myproject.testingua.DataBase.DAO.impl.UserDAOImpl;
 import com.myproject.testingua.DataBase.DBException;
 import com.myproject.testingua.controllers.Path;
 import com.myproject.testingua.models.entity.User;
@@ -19,8 +19,8 @@ public class StudentsPageServlet extends HttpServlet {
 
         // Initialize the list of students
         try {
-            UserDAO userDAO = new UserDAO();
-            List<User> usersList = userDAO.findAllUsers();
+            UserDAOImpl userDAOImpl = new UserDAOImpl();
+            List<User> usersList = userDAOImpl.findAllUsers();
             if (usersList != null) {
                 request.setAttribute("usersList", usersList);
             }
@@ -32,8 +32,8 @@ public class StudentsPageServlet extends HttpServlet {
         if (editingUserID != null && !editingUserID.isEmpty()) {
             // Get a modal form to edit user data
             try {
-                UserDAO userDAO = new UserDAO();
-                User user = userDAO.findUserByID(Integer.parseInt(editingUserID));
+                UserDAOImpl userDAOImpl = new UserDAOImpl();
+                User user = userDAOImpl.findUserByID(Integer.parseInt(editingUserID));
                 if (user != null) {
                     HttpSession session = request.getSession();
                     session.setAttribute("editingUser", user);
@@ -67,21 +67,21 @@ public class StudentsPageServlet extends HttpServlet {
                 User editingUser = (User) request.getSession().getAttribute("editingUser");
 
                 try {
-                    UserDAO userDAO = new UserDAO();
+                    UserDAOImpl userDAOImpl = new UserDAOImpl();
                     if (name != null && !name.isBlank() && !editingUser.getName().equals(name)) {
-                        userDAO.updateUserName(name, editingUser.getId());
+                        userDAOImpl.updateUserName(name, editingUser.getId());
                     }
                     if (surname != null && !surname.isBlank() && !editingUser.getSurname().equals(surname)) {
-                        userDAO.updateUserSurname(surname, editingUser.getId());
+                        userDAOImpl.updateUserSurname(surname, editingUser.getId());
                     }
                     if (email != null && !email.isBlank() && !editingUser.getEmail().equals(email)) {
-                        userDAO.updateUserEmail(email, editingUser.getId());
+                        userDAOImpl.updateUserEmail(email, editingUser.getId());
                     }
                     if (login != null && !login.isBlank() && !editingUser.getLogin().equals(login)) {
-                        userDAO.updateUserLogin(login, editingUser.getId());
+                        userDAOImpl.updateUserLogin(login, editingUser.getId());
                     }
                     if (tel != null && !tel.isBlank() && !editingUser.getTel().equals(tel)) {
-                        userDAO.updateUserTel(tel, editingUser.getId());
+                        userDAOImpl.updateUserTel(tel, editingUser.getId());
                     }
                 } catch (DBException e) {
                     e.printStackTrace();
@@ -94,8 +94,8 @@ public class StudentsPageServlet extends HttpServlet {
                     boolean newBlockedStatus = action.equals("block");
 
                     try {
-                        UserDAO userDAO = new UserDAO();
-                        userDAO.updateUserBanStatus(newBlockedStatus, Integer.parseInt(userID));
+                        UserDAOImpl userDAOImpl = new UserDAOImpl();
+                        userDAOImpl.updateUserBanStatus(newBlockedStatus, Integer.parseInt(userID));
                     } catch (DBException e) {
                         e.printStackTrace();        // Must be correct ERROR-PAGE realization
                     }

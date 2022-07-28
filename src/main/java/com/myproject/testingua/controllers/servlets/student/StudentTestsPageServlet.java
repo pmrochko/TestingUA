@@ -1,7 +1,7 @@
 package com.myproject.testingua.controllers.servlets.student;
 
-import com.myproject.testingua.DataBase.DAO.SubjectDAO;
-import com.myproject.testingua.DataBase.DAO.TestDAO;
+import com.myproject.testingua.DataBase.DAO.impl.SubjectDAOImpl;
+import com.myproject.testingua.DataBase.DAO.impl.TestDAOImpl;
 import com.myproject.testingua.DataBase.DBException;
 import com.myproject.testingua.controllers.Path;
 import com.myproject.testingua.models.entity.Subject;
@@ -31,10 +31,10 @@ public class StudentTestsPageServlet extends HttpServlet {
         List<Test> tests = null;
 
         try {
-            SubjectDAO subjectDAO = new SubjectDAO();
-            subjects = subjectDAO.findAllSubjects();
-            TestDAO testDAO = new TestDAO();
-            tests = testDAO.findAllTests();
+            SubjectDAOImpl subjectDAOImpl = new SubjectDAOImpl();
+            subjects = subjectDAOImpl.findAllSubjects();
+            TestDAOImpl testDAOImpl = new TestDAOImpl();
+            tests = testDAOImpl.findAllTests();
 
             String selectedSubject = request.getParameter("selectedSubject");
             if (selectedSubject != null) {

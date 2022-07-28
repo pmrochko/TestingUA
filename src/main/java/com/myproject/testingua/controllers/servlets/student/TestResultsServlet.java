@@ -1,6 +1,6 @@
 package com.myproject.testingua.controllers.servlets.student;
 
-import com.myproject.testingua.DataBase.DAO.HistoryTestsDAO;
+import com.myproject.testingua.DataBase.DAO.impl.HistoryTestsDAOImpl;
 import com.myproject.testingua.DataBase.DBException;
 import com.myproject.testingua.controllers.Path;
 import com.myproject.testingua.models.entity.Answer;
@@ -101,8 +101,8 @@ public class TestResultsServlet extends HttpServlet {
 
         // Recording result in history
         try {
-            HistoryTestsDAO historyTestsDAO = new HistoryTestsDAO();
-            historyTestsDAO.finishTest(student.getId(), test.getId(), (int) resultScore, status);
+            HistoryTestsDAOImpl historyTestsDAOImpl = new HistoryTestsDAOImpl();
+            historyTestsDAOImpl.finishTest(student.getId(), test.getId(), (int) resultScore, status);
         } catch (DBException e) {
             e.printStackTrace();
             // error-page

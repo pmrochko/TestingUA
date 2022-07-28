@@ -1,8 +1,8 @@
 package com.myproject.testingua.controllers.servlets.admin;
 
-import com.myproject.testingua.DataBase.DAO.AnswerDAO;
-import com.myproject.testingua.DataBase.DAO.QuestionDAO;
-import com.myproject.testingua.DataBase.DAO.TestDAO;
+import com.myproject.testingua.DataBase.DAO.impl.AnswerDAOImpl;
+import com.myproject.testingua.DataBase.DAO.impl.QuestionDAOImpl;
+import com.myproject.testingua.DataBase.DAO.impl.TestDAOImpl;
 import com.myproject.testingua.DataBase.DBException;
 import com.myproject.testingua.controllers.Path;
 import com.myproject.testingua.models.entity.Test;
@@ -27,8 +27,8 @@ public class EditTestServlet extends HttpServlet {
         if (testID != null && !testID.isBlank()) {
 
             try {
-                TestDAO testDAO = new TestDAO();
-                Test test = testDAO.findTestByID(Integer.parseInt(testID));
+                TestDAOImpl testDAOImpl = new TestDAOImpl();
+                Test test = testDAOImpl.findTestByID(Integer.parseInt(testID));
                 if (test != null) {
                     request.setAttribute("editingTest", test);
                     request.getRequestDispatcher(Path.ADMIN_EDIT_TEST_PAGE).forward(request, response);
@@ -68,8 +68,8 @@ public class EditTestServlet extends HttpServlet {
                         String updateTime = request.getParameter("time");
 
                         try {
-                            TestDAO testDAO = new TestDAO();
-                            testDAO.updateTest(
+                            TestDAOImpl testDAOImpl = new TestDAOImpl();
+                            testDAOImpl.updateTest(
                                     Integer.parseInt(updateSubject),
                                     updateTitle,
                                     updateDescription,
@@ -88,8 +88,8 @@ public class EditTestServlet extends HttpServlet {
                         if (question != null && !question.isBlank()) {
 
                             try {
-                                QuestionDAO questionDAO = new QuestionDAO();
-                                boolean check = questionDAO.insertQuestion(question, Integer.parseInt(id));
+                                QuestionDAOImpl questionDAOImpl = new QuestionDAOImpl();
+                                boolean check = questionDAOImpl.insertQuestion(question, Integer.parseInt(id));
 
                                 if (check) session.setAttribute("addedQuestion", "success");
                                 else session.setAttribute("addedQuestion", "failed");
@@ -111,8 +111,8 @@ public class EditTestServlet extends HttpServlet {
                                 questionID != null && !questionID.isBlank()) {
 
                             try {
-                                QuestionDAO questionDAO = new QuestionDAO();
-                                questionDAO.updateQuestion(newQuestion, Integer.parseInt(questionID));
+                                QuestionDAOImpl questionDAOImpl = new QuestionDAOImpl();
+                                questionDAOImpl.updateQuestion(newQuestion, Integer.parseInt(questionID));
 
                             } catch (DBException e) {
                                 e.printStackTrace();
@@ -132,8 +132,8 @@ public class EditTestServlet extends HttpServlet {
                                 AnswerStatus.isValidEnum(answerStatusSelect)) {
 
                             try {
-                                AnswerDAO answerDAO = new AnswerDAO();
-                                boolean check = answerDAO.insertAnswer(Integer.parseInt(selectedQuestion), answerStatusSelect, answerText);
+                                AnswerDAOImpl answerDAOImpl = new AnswerDAOImpl();
+                                boolean check = answerDAOImpl.insertAnswer(Integer.parseInt(selectedQuestion), answerStatusSelect, answerText);
 
                                 if (check) session.setAttribute("addedAnswer", "success");
                                 else session.setAttribute("addedAnswer", "failed");
@@ -159,8 +159,8 @@ public class EditTestServlet extends HttpServlet {
                                 !answerID.isBlank() && !newAnswer.isBlank() && !newStatus.isBlank()) {
 
                             try {
-                                AnswerDAO answerDAO = new AnswerDAO();
-                                answerDAO.updateAnswer(newAnswer, newStatus, Integer.parseInt(answerID));
+                                AnswerDAOImpl answerDAOImpl = new AnswerDAOImpl();
+                                answerDAOImpl.updateAnswer(newAnswer, newStatus, Integer.parseInt(answerID));
                             } catch (DBException e) {
                                 e.printStackTrace();
                             }

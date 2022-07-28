@@ -16,7 +16,8 @@
 </head>
 <body class="bg-dark">
 
-    <jsp:include page="/WEB-INF/views/templates/menuAdmin.jsp"/>
+    <jsp:include page="../templates/menuAdmin.jsp"/>
+    <jsp:include page="../templates/languageSelect.jsp"/>
 
     <main>
 

@@ -1,8 +1,8 @@
 package com.myproject.testingua.controllers.servlets.admin;
 
-import com.myproject.testingua.DataBase.DAO.AnswerDAO;
-import com.myproject.testingua.DataBase.DAO.QuestionDAO;
-import com.myproject.testingua.DataBase.DAO.TestDAO;
+import com.myproject.testingua.DataBase.DAO.impl.AnswerDAOImpl;
+import com.myproject.testingua.DataBase.DAO.impl.QuestionDAOImpl;
+import com.myproject.testingua.DataBase.DAO.impl.TestDAOImpl;
 import com.myproject.testingua.DataBase.DBException;
 import com.myproject.testingua.controllers.Path;
 
@@ -27,18 +27,18 @@ public class DeleteEntityServlet extends HttpServlet {
             try {
                 switch (entity) {
                     case "answer":
-                        AnswerDAO answerDAO = new AnswerDAO();
-                        answerDAO.deleteAnswerByID(Integer.parseInt(entityID));
+                        AnswerDAOImpl answerDAOImpl = new AnswerDAOImpl();
+                        answerDAOImpl.deleteAnswerByID(Integer.parseInt(entityID));
                         response.sendRedirect(Path.ADMIN_TESTS_EDIT_REDIRECT + testID);
                         return;
                     case "question":
-                        QuestionDAO questionDAO = new QuestionDAO();
-                        questionDAO.deleteQuestionByID(Integer.parseInt(entityID));
+                        QuestionDAOImpl questionDAOImpl = new QuestionDAOImpl();
+                        questionDAOImpl.deleteQuestionByID(Integer.parseInt(entityID));
                         response.sendRedirect(Path.ADMIN_TESTS_EDIT_REDIRECT + testID);
                         return;
                     case "test":
-                        TestDAO testDAO = new TestDAO();
-                        testDAO.deleteTestByID(Integer.parseInt(testID));
+                        TestDAOImpl testDAOImpl = new TestDAOImpl();
+                        testDAOImpl.deleteTestByID(Integer.parseInt(testID));
                         break;
                 }
             } catch (DBException ex) {

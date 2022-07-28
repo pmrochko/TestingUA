@@ -1,7 +1,7 @@
 package com.myproject.testingua.controllers.servlets.admin;
 
-import com.myproject.testingua.DataBase.DAO.SubjectDAO;
-import com.myproject.testingua.DataBase.DAO.TestDAO;
+import com.myproject.testingua.DataBase.DAO.impl.SubjectDAOImpl;
+import com.myproject.testingua.DataBase.DAO.impl.TestDAOImpl;
 import com.myproject.testingua.DataBase.DBException;
 import com.myproject.testingua.controllers.Path;
 import com.myproject.testingua.models.entity.Subject;
@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Time;
-import java.time.LocalTime;
 import java.util.List;
 
 @WebServlet(name = "AdminTestsPageServlet", value = "/admin/tests")
@@ -31,10 +30,10 @@ public class AdminTestsPageServlet extends HttpServlet {
         List<Subject> subjects = null;
         List<Test> tests = null;
         try {
-            SubjectDAO subjectDAO = new SubjectDAO();
-            subjects = subjectDAO.findAllSubjects();
-            TestDAO testDAO = new TestDAO();
-            tests = testDAO.findAllTests();
+            SubjectDAOImpl subjectDAOImpl = new SubjectDAOImpl();
+            subjects = subjectDAOImpl.findAllSubjects();
+            TestDAOImpl testDAOImpl = new TestDAOImpl();
+            tests = testDAOImpl.findAllTests();
         } catch (DBException e) {
             e.printStackTrace();
         }
@@ -69,12 +68,12 @@ public class AdminTestsPageServlet extends HttpServlet {
 
                 try {
                     subjectIDInt = Integer.parseInt(subjectID);
-                    TestDAO testDAO = new TestDAO();
+                    TestDAOImpl testDAOImpl = new TestDAOImpl();
                     Time testTime = Time.valueOf("00:00:00");
                     if (time != null && !time.isBlank()) {
                         testTime = Time.valueOf(time);
                     }
-                    boolean check = testDAO.insertTest(
+                    boolean check = testDAOImpl.insertTest(
                             subjectIDInt,
                             title,
                             description,

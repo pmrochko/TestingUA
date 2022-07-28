@@ -1,6 +1,6 @@
 package com.myproject.testingua.models.entity;
 
-import com.myproject.testingua.DataBase.DAO.AnswerDAO;
+import com.myproject.testingua.DataBase.DAO.impl.AnswerDAOImpl;
 import com.myproject.testingua.DataBase.DBException;
 import com.myproject.testingua.models.enums.AnswerStatus;
 import com.myproject.testingua.models.enums.QuestionStatus;
@@ -83,7 +83,7 @@ public class Test extends Entity{
 
                     if (!answers.get(question).isEmpty()) {
                         int answerID = answers.get(question).get(0);
-                        Answer answer = new AnswerDAO().findAnswerByID(answerID);
+                        Answer answer = new AnswerDAOImpl().findAnswerByID(answerID);
                         if (answer.getAnswerStatus() == AnswerStatus.RIGHT) countOfRightAnswers++;
                     }
 
@@ -119,7 +119,7 @@ public class Test extends Entity{
 
     private static Answer getAnswerByID(int id) {
         try {
-            return new AnswerDAO().findAnswerByID(id);
+            return new AnswerDAOImpl().findAnswerByID(id);
         } catch (DBException e) {
             e.printStackTrace();
             return null;

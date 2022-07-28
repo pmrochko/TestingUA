@@ -1,6 +1,6 @@
 package com.myproject.testingua.models.entity;
 
-import com.myproject.testingua.DataBase.DAO.HistoryTestsDAO;
+import com.myproject.testingua.DataBase.DAO.impl.HistoryTestsDAOImpl;
 import com.myproject.testingua.DataBase.DBException;
 import com.myproject.testingua.models.enums.UserRole;
 
@@ -87,8 +87,8 @@ public class User extends Entity{
     }
     public int countOfPassedTests() {
         try {
-            HistoryTestsDAO historyTestsDAO = new HistoryTestsDAO();
-            return historyTestsDAO.findAllTestHistoryRecordsByStudID(getId()).size();
+            HistoryTestsDAOImpl historyTestsDAOImpl = new HistoryTestsDAOImpl();
+            return historyTestsDAOImpl.findAllTestHistoryRecordsByStudID(getId()).size();
         } catch (DBException e) {
             e.printStackTrace();
             //error - page

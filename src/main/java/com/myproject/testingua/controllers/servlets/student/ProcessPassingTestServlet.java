@@ -1,8 +1,7 @@
 package com.myproject.testingua.controllers.servlets.student;
 
-import com.myproject.testingua.DataBase.DAO.HistoryTestsDAO;
-import com.myproject.testingua.DataBase.DAO.TestDAO;
-import com.myproject.testingua.DataBase.DAO.UserDAO;
+import com.myproject.testingua.DataBase.DAO.impl.HistoryTestsDAOImpl;
+import com.myproject.testingua.DataBase.DAO.impl.TestDAOImpl;
 import com.myproject.testingua.DataBase.DBException;
 import com.myproject.testingua.controllers.Path;
 import com.myproject.testingua.models.entity.HistoryOfTest;
@@ -29,15 +28,15 @@ public class ProcessPassingTestServlet extends HttpServlet {
         if (id != null && !id.isBlank()) {
 
             try {
-                Test test = new TestDAO().findTestByID(Integer.parseInt(id));
+                Test test = new TestDAOImpl().findTestByID(Integer.parseInt(id));
                 User student = (User) session.getAttribute("currentUser");
 
                 if (test != null && student != null) {
                     session.setAttribute("startedTest", test);
 
                     if (!HistoryOfTest.historyContainRecordedTest(test, student.getId())) {
-                        HistoryTestsDAO historyTestsDAO = new HistoryTestsDAO();
-                        historyTestsDAO.insertRecordOfHistory(
+                        HistoryTestsDAOImpl historyTestsDAOImpl = new HistoryTestsDAOImpl();
+                        historyTestsDAOImpl.insertRecordOfHistory(
                                 student.getId(),
                                 test.getId(),
                                 0,

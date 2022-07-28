@@ -1,6 +1,6 @@
 package com.myproject.testingua.controllers.servlets;
 
-import com.myproject.testingua.DataBase.DAO.UserDAO;
+import com.myproject.testingua.DataBase.DAO.impl.UserDAOImpl;
 import com.myproject.testingua.DataBase.DBException;
 import com.myproject.testingua.validation.DataValidator;
 
@@ -39,9 +39,9 @@ public class RegistrationServlet extends HttpServlet {
                 !name.isBlank() && !surname.isBlank() && !login.isBlank() && !email.isBlank() && !password.isBlank() && !repeatPassword.isBlank() &&
                 password.equals(repeatPassword) && validData) {
 
-            UserDAO userDAO = null;
+            UserDAOImpl userDAOImpl = null;
             try {
-                userDAO = new UserDAO();
+                userDAOImpl = new UserDAOImpl();
             } catch (DBException e) {
                 session.setAttribute("errorMessage", e.getMessage());
                 response.sendRedirect("/login?page=error");
@@ -49,8 +49,8 @@ public class RegistrationServlet extends HttpServlet {
             }
 
             try {
-                if (userDAO.findUserByEmail(email) == null && userDAO.findUserByLogin(login) == null) {
-                    boolean success = userDAO.insertUser(login, email, password, name, surname);
+                if (userDAOImpl.findUserByEmail(email) == null && userDAOImpl.findUserByLogin(login) == null) {
+                    boolean success = userDAOImpl.insertUser(login, email, password, name, surname);
                     if (success) session.setAttribute("registrationStatus", "success");
                     else session.setAttribute("registrationStatus", "failed");
                 } else {
