@@ -14,16 +14,22 @@
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
     <li>
-      <a class="dropdown-item" href="#">
-        <img src="../../../images/en-lang.png" style="width: 20px;" alt="en">
-        English
-      </a>
+      <form method="post" action="${pageContext.request.contextPath}/language"
+            style="margin: 0;">
+        <button name="lang" class="dropdown-item" type="submit" value="en">
+          <img src="../../../images/en-lang.png" style="width: 20px;" alt="en">
+          English
+        </button>
+      </form>
     </li>
     <li>
-      <a class="dropdown-item" href="#">
-        <img src="../../../images/uk-lang.png" style="width: 20px;" alt="uk">
-        Ukrainian
-      </a>
+      <form method="post" action="${pageContext.request.contextPath}/language"
+            style="margin: 0;">
+        <button name="lang" class="dropdown-item" type="submit" value="uk_UA">
+          <img src="../../../images/uk-lang.png" style="width: 20px;" alt="uk">
+          Ukrainian
+        </button>
+      </form>
     </li>
   </ul>
 </div>

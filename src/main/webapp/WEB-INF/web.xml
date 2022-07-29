@@ -17,6 +17,9 @@
         </jsp-property-group>
     </jsp-config>
 
+    <!--============================================================
+	        Encoding support filter
+    =============================================================-->
     <filter>
         <filter-name>EncodingFilter</filter-name>
         <filter-class>com.myproject.testingua.controllers.filters.EncodingFilter</filter-class>
@@ -31,7 +34,11 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-    <!--Security filters-->
+    <!--============================================================
+            Security filter.
+            1) admin: has access to /admin/*
+            2) student: has access to /student/*
+    =============================================================-->
     <filter-mapping>
         <filter-name>AdminSecurityFilter</filter-name>
         <url-pattern>/admin/*</url-pattern>
@@ -41,5 +48,7 @@
         <filter-name>StudentSecurityFilter</filter-name>
         <url-pattern>/student/*</url-pattern>
     </filter-mapping>
+
+
 
 </web-app>

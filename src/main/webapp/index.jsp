@@ -1,5 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="WEB-INF/views/templates/libsAndLocale.jspf" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -74,7 +74,7 @@
                     </c:when>
                     <c:otherwise>
                         <div class="mb-3 mt-5" style="text-align: center;">
-                            Please login to your account
+                            <fmt:message key="login.message.welcome"/>
                         </div>
                     </c:otherwise>
                 </c:choose>

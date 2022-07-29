@@ -18,7 +18,5 @@ public final class Path {
     public static final String STUDENT_PROCESS_PASSING_TEST_PAGE = "/WEB-INF/views/student/processPassingTest.jsp";
     public static final String STUDENT_RESULT_TEST_PAGE = "/WEB-INF/views/student/resultTest.jsp";
 
-
     public static final String ERROR_PAGE = "/WEB-INF/views/errorPage.jsp";
-
 }
