@@ -24,7 +24,13 @@ public class CreatePDFServlet extends HttpServlet {
         long testResult = (long) session.getAttribute("testResult");
         TestProgressStatus status = (TestProgressStatus) session.getAttribute("testStatus");
 
-        PDFBuilder.testResultPDF(request, response, user, test, status.name(), testResult + "%");
+        if (user != null && test != null && status != null) {
+            PDFBuilder.testResultPDF(request, response, user, test, status.name(), testResult + "%");
+        } else {
+            session.setAttribute("errorMessage", "you didn't start the test");
+            session.setAttribute("prevPage", getServletContext().getContextPath());
+            response.sendRedirect("/error");
+        }
 
     }
 

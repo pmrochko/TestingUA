@@ -23,6 +23,7 @@ public class EditTestServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String testID = request.getParameter("id");
+        HttpSession session = request.getSession();
 
         if (testID != null && !testID.isBlank()) {
 
@@ -33,17 +34,20 @@ public class EditTestServlet extends HttpServlet {
                     request.setAttribute("editingTest", test);
                     request.getRequestDispatcher(Path.ADMIN_EDIT_TEST_PAGE).forward(request, response);
                 } else {
-                    // error-page
-                    request.getRequestDispatcher(Path.ADMIN_TESTS_PAGE).forward(request, response);
+                    session.setAttribute("errorMessage", "test = null");
+                    session.setAttribute("prevPage", getServletContext().getContextPath());
+                    response.sendRedirect("/error");
                 }
             } catch (DBException e) {
-                e.printStackTrace();
-                //error-page
+                session.setAttribute("errorMessage", e.getMessage());
+                session.setAttribute("prevPage", getServletContext().getContextPath());
+                response.sendRedirect("/error");
             }
 
         } else {
-            //error-page
-            request.getRequestDispatcher(Path.ADMIN_TESTS_PAGE).forward(request, response);
+            session.setAttribute("errorMessage", "ID of the test = null");
+            session.setAttribute("prevPage", getServletContext().getContextPath());
+            response.sendRedirect("/error");
         }
     }
 
@@ -78,7 +82,9 @@ public class EditTestServlet extends HttpServlet {
                                     Integer.parseInt(id)
                                     );
                         } catch (DBException e) {
-                            e.printStackTrace();
+                            session.setAttribute("errorMessage", e.getMessage());
+                            session.setAttribute("prevPage", getServletContext().getContextPath());
+                            response.sendRedirect("/error");
                         }
                         break;
 
@@ -115,10 +121,11 @@ public class EditTestServlet extends HttpServlet {
                                 questionDAOImpl.updateQuestion(newQuestion, Integer.parseInt(questionID));
 
                             } catch (DBException e) {
-                                e.printStackTrace();
+                                session.setAttribute("errorMessage", e.getMessage());
+                                session.setAttribute("prevPage", getServletContext().getContextPath());
+                                response.sendRedirect("/error");
                             }
                         }
-
                         break;
 
                     case "addAnswer":
@@ -147,7 +154,6 @@ public class EditTestServlet extends HttpServlet {
                         }
 
                         session.setAttribute("selectedQuestionID", selectedQuestion);
-                        //if (selectedQuestion != null) session.removeAttribute("selectedQuestion");
                         break;
 
                     case "updateAnswer":
@@ -162,11 +168,12 @@ public class EditTestServlet extends HttpServlet {
                                 AnswerDAOImpl answerDAOImpl = new AnswerDAOImpl();
                                 answerDAOImpl.updateAnswer(newAnswer, newStatus, Integer.parseInt(answerID));
                             } catch (DBException e) {
-                                e.printStackTrace();
+                                session.setAttribute("errorMessage", e.getMessage());
+                                session.setAttribute("prevPage", getServletContext().getContextPath());
+                                response.sendRedirect("/error");
                             }
 
                         }
-
                         break;
                 }
                 response.sendRedirect(Path.ADMIN_TESTS_EDIT_REDIRECT + id);

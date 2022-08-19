@@ -14,6 +14,8 @@ import java.util.List;
 @WebServlet(name = "StudentsPageServlet", value = "/admin/students")
 public class StudentsPageServlet extends HttpServlet {
 
+    private static final long serialVersionUID = 8249045890195241906L;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -28,6 +30,7 @@ public class StudentsPageServlet extends HttpServlet {
             e.printStackTrace();
         }
 
+        HttpSession session = request.getSession();
         String editingUserID = request.getParameter("editingUserID");
         if (editingUserID != null && !editingUserID.isEmpty()) {
             // Get a modal form to edit user data
@@ -35,12 +38,13 @@ public class StudentsPageServlet extends HttpServlet {
                 UserDAOImpl userDAOImpl = new UserDAOImpl();
                 User user = userDAOImpl.findUserByID(Integer.parseInt(editingUserID));
                 if (user != null) {
-                    HttpSession session = request.getSession();
                     session.setAttribute("editingUser", user);
                     request.setAttribute("openModalEdit", true);
                 }
             } catch (DBException e) {
-                e.printStackTrace();
+                session.setAttribute("errorMessage", e.getMessage());
+                session.setAttribute("prevPage", getServletContext().getContextPath());
+                response.sendRedirect("/error");
             }
         }
 
@@ -53,9 +57,9 @@ public class StudentsPageServlet extends HttpServlet {
 
         String action = request.getParameter("action");
         String userID = request.getParameter("userID");
+        HttpSession session = request.getSession();
 
         if (action != null && !action.isEmpty()) {
-
             if (action.equals("edit")) {
 
                 String name = request.getParameter("name");
@@ -84,21 +88,23 @@ public class StudentsPageServlet extends HttpServlet {
                         userDAOImpl.updateUserTel(tel, editingUser.getId());
                     }
                 } catch (DBException e) {
-                    e.printStackTrace();
+                    session.setAttribute("errorMessage", e.getMessage());
+                    session.setAttribute("prevPage", getServletContext().getContextPath());
+                    response.sendRedirect("/error");
                 }
 
                 request.getSession().removeAttribute("editingUser");
 
-            } else {
-                if (userID != null && !userID.isEmpty()) {
-                    boolean newBlockedStatus = action.equals("block");
+            } else if (userID != null && !userID.isEmpty()) {
+                boolean newBlockedStatus = action.equals("block");
 
-                    try {
-                        UserDAOImpl userDAOImpl = new UserDAOImpl();
-                        userDAOImpl.updateUserBanStatus(newBlockedStatus, Integer.parseInt(userID));
-                    } catch (DBException e) {
-                        e.printStackTrace();        // Must be correct ERROR-PAGE realization
-                    }
+                try {
+                    UserDAOImpl userDAOImpl = new UserDAOImpl();
+                    userDAOImpl.updateUserBanStatus(newBlockedStatus, Integer.parseInt(userID));
+                } catch (DBException e) {
+                    session.setAttribute("errorMessage", e.getMessage());
+                    session.setAttribute("prevPage", getServletContext().getContextPath());
+                    response.sendRedirect("/error");
                 }
             }
         }

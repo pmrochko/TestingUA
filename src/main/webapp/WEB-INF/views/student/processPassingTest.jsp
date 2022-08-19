@@ -1,8 +1,10 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="../templates/libsAndLocale.jspf" %>
+
 <html>
 <head>
-    <title>Process</title>
+    <title>
+        <fmt:message key="student.processPassingPage"/>
+    </title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
           rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
@@ -27,15 +29,9 @@
 
     <jsp:include page="/WEB-INF/views/templates/menuStudent.jsp"/>
 
-    <!----------------------------------Students modal window---------------------------------->
-
-
-
-    <!----------------------------------------------------------------------------------------->
-
     <header class="header">
         <div class="header-title">
-            Answer the question:
+            <fmt:message key="student.processPassingPage.headerTitle"/>:
         </div>
         <div class="timer">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-stopwatch" viewBox="0 0 16 16">
@@ -44,10 +40,14 @@
             </svg>
             <c:choose>
                 <c:when test="${sessionScope.startedTest.time == '00:00:00'}">
-                    <b id="countdownTimer">Timer: <span style="color: #29c000">UNLIM</span></b>
+                    <b id="countdownTimer">
+                        <fmt:message key="student.processPassingPage.timer"/>:
+                    </b>
+                    <span style="color:#29c000; font-size: 30px; padding-left: 5px;">∞</span>
                 </c:when>
                 <c:otherwise>
-                    <b id="countdownTimer">Timer: <span id="timer" style="color: #e30000"></span></b>
+                    <b id="countdownTimer"><fmt:message key="student.processPassingPage.timer"/>:
+                        <span id="timer" style="color: #e30000"></span></b>
                 </c:otherwise>
             </c:choose>
         </div>
@@ -98,7 +98,9 @@
                 </label>
 
                 <div class="d-grid gap-2 col-6 mx-auto">
-                    <button id="submit" type="submit" class="btn btn-success">Submit</button>
+                    <button id="submit" type="submit" class="btn btn-success">
+                        <fmt:message key="student.processPassingPage.submit"/>
+                    </button>
                 </div>
 
             </form>

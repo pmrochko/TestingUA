@@ -6,6 +6,7 @@ import com.myproject.testingua.DataBase.DBException;
 import com.myproject.testingua.controllers.Path;
 import com.myproject.testingua.models.entity.Subject;
 import com.myproject.testingua.models.entity.Test;
+import com.myproject.testingua.models.sorting.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,25 +34,48 @@ public class StudentTestsPageServlet extends HttpServlet {
         List<Test> tests = null;
 
         try {
-            SubjectDAOImpl subjectDAOImpl = new SubjectDAOImpl();
-            subjects = subjectDAOImpl.findAllSubjects();
-            TestDAOImpl testDAOImpl = new TestDAOImpl();
-            tests = testDAOImpl.findAllTests();
+            subjects = new SubjectDAOImpl().findAllSubjects();
+            tests = new TestDAOImpl().findAllTests();
 
             String selectedSubject = request.getParameter("selectedSubject");
-            if (selectedSubject != null) {
-                request.setAttribute("selectedSubject", selectedSubject);
-                for (Subject subject : subjects) {
-                    if (subject.getName().equals(selectedSubject)) {
-                        tests = tests.stream()
-                                .filter(t -> t.getSubject().equals(subject))
-                                .collect(Collectors.toList());
-                    }
-                }
+            if (selectedSubject == null) {
+                selectedSubject = (String) session.getAttribute("selectedSubject");
+            } else {
+                session.setAttribute("selectedSubject", selectedSubject);
             }
 
+            if (selectedSubject != null && !selectedSubject.isBlank() && !selectedSubject.equals("All")) {
+                String finalSelectedSubject = selectedSubject;
+                tests = tests.stream()
+                        .filter(t -> t.getSubject().getName().equals(finalSelectedSubject))
+                        .collect(Collectors.toList());
+            }
+
+            String selectedSort = request.getParameter("selectedSort");
+            if (selectedSort == null) {
+                selectedSort = (String) session.getAttribute("selectedSort");
+            } else {
+                session.setAttribute("selectedSort", selectedSort);
+            }
+
+            /*if (selectedSort != null && !selectedSort.isBlank()) {
+                switch (selectedSort){
+                    case "subjectUp": tests.sort(new SortByTestSubject()); break;
+                    case "subjectDown": tests.sort(new SortByTestSubject().reversed()); break;
+                    case "titleUp": tests.sort(new SortByTestTitle()); break;
+                    case "titleDown": tests.sort(new SortByTestTitle().reversed()); break;
+                    case "difficultyUp": tests.sort(new SortByTestDifficulty()); break;
+                    case "difficultyDown": tests.sort(new SortByTestDifficulty().reversed()); break;
+                    case "questionUp": tests.sort(new SortByTestQuestion()); break;
+                    case "questionDown": tests.sort(new SortByTestQuestion().reversed()); break;
+                    case "timeUp": tests.sort(new SortByTestTime()); break;
+                    case "timeDown": tests.sort(new SortByTestTime().reversed()); break;
+                }
+            }*/
         } catch (DBException e) {
-            e.printStackTrace();
+            session.setAttribute("errorMessage", e.getMessage());
+            session.setAttribute("prevPage", getServletContext().getContextPath());
+            response.sendRedirect("/error");
         }
 
         if (subjects != null && tests != null) {
@@ -66,7 +92,7 @@ public class StudentTestsPageServlet extends HttpServlet {
 
             int fromIndex = (page - 1) * recordsPerPage;
             int toIndex = fromIndex + recordsPerPage;
-            List<Test> resultList = new ArrayList<>();
+            List<Test> resultList;
 
             if (toIndex <= tests.size()) {
                 resultList = tests.subList(fromIndex, toIndex);
@@ -79,19 +105,49 @@ public class StudentTestsPageServlet extends HttpServlet {
             request.setAttribute("testsList", resultList);
             request.getRequestDispatcher(Path.STUDENT_TESTS_PAGE).forward(request, response);
         } else {
-            //error-page
+            session.setAttribute("errorMessage", "tests or subjects = null");
+            session.setAttribute("prevPage", getServletContext().getContextPath());
+            response.sendRedirect("/error");
         }
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void sortingTests(List<Test> tests, String selectedSortBy) {
 
-        String selectedSubject = request.getParameter("selectedSubject");
-        if (selectedSubject != null && !selectedSubject.isBlank() && !selectedSubject.equals("All"))
-            response.sendRedirect("/student/tests?selectedSubject=" + selectedSubject);
-        else
-            response.sendRedirect("/student/tests");
+        if (selectedSortBy != null && !selectedSortBy.isBlank() && tests != null) {
 
+            switch (selectedSortBy){
+                case "subjectUp":
+                    tests.sort(new SortByTestSubject());
+                    break;
+                case "subjectDown":
+                    tests.sort(new SortByTestSubject().reversed());
+                    break;
+                case "titleUp":
+                    tests.sort(new SortByTestTitle());
+                    break;
+                case "titleDown":
+                    tests.sort(new SortByTestTitle().reversed());
+                    break;
+                case "difficultyUp":
+                    tests.sort(new SortByTestDifficulty());
+                    break;
+                case "difficultyDown":
+                    tests.sort(new SortByTestDifficulty().reversed());
+                    break;
+                case "questionUp":
+                    tests.sort(new SortByTestQuestion());
+                    break;
+                case "questionDown":
+                    tests.sort(new SortByTestQuestion().reversed());
+                    break;
+                case "timeUp":
+                    tests.sort(new SortByTestTime());
+                    break;
+                case "timeDown":
+                    tests.sort(new SortByTestTime().reversed());
+                    break;
+            }
+        }
     }
 
 }

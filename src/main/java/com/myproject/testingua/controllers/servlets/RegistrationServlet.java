@@ -44,7 +44,8 @@ public class RegistrationServlet extends HttpServlet {
                 userDAOImpl = new UserDAOImpl();
             } catch (DBException e) {
                 session.setAttribute("errorMessage", e.getMessage());
-                response.sendRedirect("/login?page=error");
+                session.setAttribute("prevPage", getServletContext().getContextPath());
+                response.sendRedirect("/error");
                 return;
             }
 
@@ -58,7 +59,8 @@ public class RegistrationServlet extends HttpServlet {
                 }
             } catch (DBException e) {
                 session.setAttribute("errorMessage", e.getMessage());
-                response.sendRedirect("/login?page=error");
+                session.setAttribute("prevPage", getServletContext().getContextPath());
+                response.sendRedirect("/error");
                 return;
             }
         } else {

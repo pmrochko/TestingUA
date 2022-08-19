@@ -1,7 +1,10 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ include file="../templates/libsAndLocale.jspf" %>
+
 <html>
 <head>
-    <title>Admin Menu</title>
+    <title>
+        <fmt:message key="menu.admin"/>
+    </title>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
           rel="stylesheet"/>
@@ -25,13 +28,13 @@
              class="card text-white bg-dark mb-3 onclick-anim" style="max-width: 18rem;">
             <img src="../../../images/admin/sysAdmin-icon.png"
                  class="card-img-top" alt="System administrator" style="max-width: 12rem"/>
-            <div class="card-header">System</div>
+            <div class="card-header"><fmt:message key="admin.homePage.card_1.title"/></div>
             <div class="card-body">
-                <h5 class="card-title m-b-20">System administrator</h5>
+                <h5 class="card-title m-b-20"><fmt:message key="admin.homePage.card_1.description.title"/></h5>
                 <p class="card-text">
-                    - creates, deletes or edits tests;
+                    <fmt:message key="admin.homePage.card_1.description.row_1"/>
                     <br>
-                    - blocks, unlocks, edits the users.
+                    <fmt:message key="admin.homePage.card_1.description.row_2"/>
                     <br><br>
                 </p>
             </div>
@@ -46,15 +49,15 @@
              class="card text-white bg-dark mb-3 onclick-anim" style="max-width: 18rem;">
             <img src="../../../images/admin/creating-tests-icon.png"
                  class="card-img-top" alt="Sunset Over the Sea" style="max-width: 10rem"/>
-            <div class="card-header">Tests</div>
+            <div class="card-header"><fmt:message key="admin.homePage.card_2.title"/></div>
             <div class="card-body">
-                <h5 class="card-title m-b-20">Creating tests</h5>
+                <h5 class="card-title m-b-20"><fmt:message key="admin.homePage.card_2.description.title"/></h5>
                 <p class="card-text">
-                    - sets the time of the test;
+                    <fmt:message key="admin.homePage.card_2.description.row_1"/>
                     <br>
-                    - complexity of the test;
+                    <fmt:message key="admin.homePage.card_2.description.row_2"/>
                     <br>
-                    - adds questions to the test
+                    <fmt:message key="admin.homePage.card_2.description.row_3"/>
                 </p>
             </div>
             <div class="onclick-picture">

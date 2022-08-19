@@ -21,10 +21,13 @@ public class StudentSecurityFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
 
+        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+        HttpSession session = httpServletRequest.getSession();
+
         if (accessAllowed(request)) {
             chain.doFilter(request, response);
         } else {
-            request.setAttribute("errorMessage", "You are not student");
+            session.setAttribute("errorMessage", "You are not student");
             request.getRequestDispatcher(Path.ERROR_PAGE).forward(request, response);
         }
 

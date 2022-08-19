@@ -29,7 +29,6 @@ public class TestResultsServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         Test test = (Test) session.getAttribute("startedTest");
-        long result = (long) session.getAttribute("testResult");
 
         if (test != null) {
 
@@ -37,6 +36,8 @@ public class TestResultsServlet extends HttpServlet {
 
         } else {
 
+            session.setAttribute("errorMessage", "you didn't start the test");
+            session.setAttribute("prevPage", getServletContext().getContextPath());
             request.getRequestDispatcher(Path.ERROR_PAGE).forward(request, response);
 
         }
@@ -83,8 +84,9 @@ public class TestResultsServlet extends HttpServlet {
         try {
             resultScore = Test.calculationResult(resultMap);
         } catch (DBException e) {
-            e.printStackTrace();
-            // error-page
+            session.setAttribute("errorMessage", e.getMessage());
+            session.setAttribute("prevPage", getServletContext().getContextPath());
+            response.sendRedirect("/error");
         }
 
         session.setAttribute("testResult", resultScore);
@@ -104,8 +106,9 @@ public class TestResultsServlet extends HttpServlet {
             HistoryTestsDAOImpl historyTestsDAOImpl = new HistoryTestsDAOImpl();
             historyTestsDAOImpl.finishTest(student.getId(), test.getId(), (int) resultScore, status);
         } catch (DBException e) {
-            e.printStackTrace();
-            // error-page
+            session.setAttribute("errorMessage", e.getMessage());
+            session.setAttribute("prevPage", getServletContext().getContextPath());
+            response.sendRedirect("/error");
         }
 
         response.sendRedirect("/student/tests/result");

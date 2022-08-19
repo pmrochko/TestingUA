@@ -1,8 +1,10 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="../templates/libsAndLocale.jspf" %>
+
 <html>
 <head>
-    <title>Edit test</title>
+    <title>
+        <fmt:message key="admin.editTestPage"/>
+    </title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
           rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
@@ -33,63 +35,67 @@
         <table class="table table-bordered">
             <tbody id="editTest">
             <tr>
-                <td>Subject:
+                <td><fmt:message key="test.subject"/>:
                     <select name="subjectSelect" class="form-select m-b-15" aria-label="subject selecting">
                         <c:forEach var="subject" items="${sessionScope.subjectsList}">
                             <c:choose>
                                 <c:when test="${subject.id == requestScope.editingTest.subject.id}">
-                                    <option selected value="${subject.id}">${subject.name}</option>
+                                    <option selected value="${subject.id}">
+                                        <fmt:message key="subject.${subject.name}"/>
+                                    </option>
                                 </c:when>
                                 <c:otherwise>
-                                    <option value="${subject.id}">${subject.name}</option>
+                                    <option value="${subject.id}">
+                                        <fmt:message key="subject.${subject.name}"/>
+                                    </option>
                                 </c:otherwise>
                             </c:choose>
                         </c:forEach>
                     </select>
                 </td>
-                <td>Title:
+                <td><fmt:message key="test.title"/>:
                     <div class="form-outline mb-3">
                         <input value="${requestScope.editingTest.title}" type="text" name="title" id="editTitle" class="form-control"/>
                     </div>
                 </td>
-                <td rowspan="2">Description:
+                <td rowspan="2"><fmt:message key="test.description"/>:
                     <div class="form-outline mb-3">
                         <textarea rows="5" name="description" id="editDescription" class="form-control">${requestScope.editingTest.description}</textarea>
                     </div>
                 </td>
             </tr>
             <tr>
-                <td>Difficulty:
+                <td><fmt:message key="test.difficulty"/>:
                     <select name="difficultySelect" class="form-select m-b-15" aria-label="difficulty selecting">
                         <c:choose>
                             <c:when test="${requestScope.editingTest.difficulty.name().equals('EASY')}">
-                                <option selected style="color: green" value="EASY">Easy</option>
+                                <option selected style="color: green" value="EASY"><fmt:message key="test.difficulty.easy"/></option>
                             </c:when>
                             <c:otherwise>
-                                <option style="color: green" value="EASY">Easy</option>
+                                <option style="color: green" value="EASY"><fmt:message key="test.difficulty.easy"/></option>
                             </c:otherwise>
                         </c:choose>
 
                         <c:choose>
                             <c:when test="${requestScope.editingTest.difficulty.name().equals('MEDIUM')}">
-                                <option selected style="color: orange" value="MEDIUM">Medium</option>
+                                <option selected style="color: orange" value="MEDIUM"><fmt:message key="test.difficulty.medium"/></option>
                             </c:when>
                             <c:otherwise>
-                                <option style="color: orange" value="MEDIUM">Medium</option>
+                                <option style="color: orange" value="MEDIUM"><fmt:message key="test.difficulty.medium"/></option>
                             </c:otherwise>
                         </c:choose>
 
                         <c:choose>
                             <c:when test="${requestScope.editingTest.difficulty.name().equals('DIFFICULT')}">
-                                <option selected style="color: red" value="DIFFICULT">Difficult</option>
+                                <option selected style="color: red" value="DIFFICULT"><fmt:message key="test.difficulty.difficult"/></option>
                             </c:when>
                             <c:otherwise>
-                                <option style="color: red" value="DIFFICULT">Difficult</option>
+                                <option style="color: red" value="DIFFICULT"><fmt:message key="test.difficulty.difficult"/></option>
                             </c:otherwise>
                         </c:choose>
                     </select>
                 </td>
-                <td>Time:
+                <td><fmt:message key="test.time"/>:
                     <div class="form-outline mb-3">
                         <input value="${requestScope.editingTest.time}" type="time" step="1" name="time" id="editTime" class="form-control"/>
                     </div>
@@ -103,14 +109,14 @@
                     <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"></path>
                     <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"></path>
                 </svg>
-                Update
+                <fmt:message key="test.update"/>
             </button>
         </div>
     </form>
 
     <header class="header">
         <div class="header-title" style="margin-right: 70%">
-            List of questions
+            <fmt:message key="admin.editTestPage.headerTitle"/>
         </div>
         <button data-bs-toggle="modal" data-bs-target="#modal-add-question"
                 type="button" class="btn btn-success btn-rounded">
@@ -126,17 +132,23 @@
         <c:choose>
             <c:when test="${sessionScope.addedQuestion == 'success'}">
                 <script>
-                    swal("Success", "You have successfully added a new question!", "success");
+                    swal("<fmt:message key="swal.success"/>",
+                         "<fmt:message key="swal.success.addQuestion"/>",
+                         "success");
                 </script>
             </c:when>
             <c:when test="${sessionScope.addedQuestion == 'empty'}">
                 <script>
-                    swal("Empty input", "Please fill in the required fields", "warning");
+                    swal("<fmt:message key="swal.emptyInput"/>",
+                         "<fmt:message key="swal.emptyInput.fillReqFields"/>",
+                         "warning");
                 </script>
             </c:when>
             <c:when test="${sessionScope.addedQuestion == 'failed'}">
                 <script>
-                    swal("Error", "You failed to add a new question!", "error");
+                    swal("<fmt:message key="swal.error"/>",
+                         "<fmt:message key="swal.error.failedAddQuestion"/>",
+                         "error");
                 </script>
             </c:when>
         </c:choose>
@@ -147,17 +159,23 @@
         <c:choose>
             <c:when test="${sessionScope.addedAnswer == 'success'}">
                 <script>
-                    swal("Success", "You have successfully added a new answer!", "success");
+                    swal("<fmt:message key="swal.success"/>",
+                         "<fmt:message key="swal.success.addAnswer"/>",
+                         "success");
                 </script>
             </c:when>
             <c:when test="${sessionScope.addedAnswer == 'empty'}">
                 <script>
-                    swal("Empty input", "Please fill in the required fields", "warning");
+                    swal("<fmt:message key="swal.emptyInput"/>",
+                         "<fmt:message key="swal.emptyInput.fillReqFields"/>",
+                         "warning");
                 </script>
             </c:when>
             <c:when test="${sessionScope.addedAnswer == 'failed'}">
                 <script>
-                    swal("Error", "You failed to add a new answer!", "error");
+                    swal("<fmt:message key="swal.error"/>",
+                         "<fmt:message key="swal.error.failedAddAnswer"/>",
+                         "error");
                 </script>
             </c:when>
         </c:choose>
@@ -169,9 +187,9 @@
             <thead class="bg-light">
             <tr>
                 <th>№</th>
-                <th>Question</th>
-                <th>Count of answers</th>
-                <th>Actions</th>
+                <th><fmt:message key="question.question"/></th>
+                <th><fmt:message key="question.qAnswers"/></th>
+                <th><fmt:message key="actions"/></th>
             </tr>
             </thead>
             <tbody>
@@ -215,7 +233,7 @@
                     <td>
                         <button onclick="edit_question(${question.id})"
                                 type="button" class="btn btn-link btn-sm btn-rounded">
-                            Edit
+                            <fmt:message key="actions.edit"/>
                         </button>
                         <form action="${pageContext.request.contextPath}/admin/tests/delete?entity=question&entityID=${question.id}&testID=${requestScope.editingTest.id}"
                               method="post"
@@ -225,7 +243,7 @@
                                     class="btn btn-link btn-rounded btn-sm fw-bold"
                                     data-mdb-ripple-color="dark"
                             >
-                                Delete
+                                <fmt:message key="actions.delete"/>
                             </button>
                         </form>
                         <button onclick="dropdown_answers(${question.id});"
@@ -234,17 +252,17 @@
                                 <path d="M3.626 6.832A.5.5 0 0 1 4 6h8a.5.5 0 0 1 .374.832l-4 4.5a.5.5 0 0 1-.748 0l-4-4.5z"></path>
                                 <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 0a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2z"></path>
                             </svg>
-                            Answers
+                            <fmt:message key="actions.answers"/>
                         </button>
                     </td>
                 </tr>
 
                 <tr class="question_id${question.id} table-warning answer-row" hidden="hidden">
                     <th>№</th>
-                    <th>Answer</th>
-                    <th>Status</th>
+                    <th><fmt:message key="answer.answer"/></th>
+                    <th><fmt:message key="status"/></th>
                     <th>
-                        Actions
+                        <fmt:message key="actions"/>
                         <button data-bs-toggle="modal" data-bs-target="#modal-add-answer"
                                 data-id="${question.id}"
                                 type="submit" class="addAnswerButton btn btn-warning btn-rounded">
@@ -288,19 +306,27 @@
                                             style="max-width: 80%;">
                                         <c:choose>
                                             <c:when test="${answer.answerStatus.name().equals('RIGHT')}">
-                                                <option selected style="color: green" value="RIGHT">Right</option>
+                                                <option selected style="color: green" value="RIGHT">
+                                                    <fmt:message key="answer.status.right"/>
+                                                </option>
                                             </c:when>
                                             <c:otherwise>
-                                                <option style="color: green" value="RIGHT">Right</option>
+                                                <option style="color: green" value="RIGHT">
+                                                    <fmt:message key="answer.status.right"/>
+                                                </option>
                                             </c:otherwise>
                                         </c:choose>
 
                                         <c:choose>
                                             <c:when test="${answer.answerStatus.name().equals('WRONG')}">
-                                                <option selected style="color: red" value="WRONG">Wrong</option>
+                                                <option selected style="color: red" value="WRONG">
+                                                    <fmt:message key="answer.status.wrong"/>
+                                                </option>
                                             </c:when>
                                             <c:otherwise>
-                                                <option style="color: red" value="WRONG">Wrong</option>
+                                                <option style="color: red" value="WRONG">
+                                                    <fmt:message key="answer.status.wrong"/>
+                                                </option>
                                             </c:otherwise>
                                         </c:choose>
                                     </select>
@@ -310,7 +336,7 @@
                         <td style="padding: 5px">
                             <button onclick="edit_answer(${answer.id})"
                                     type="button" class="btn btn-link btn-sm btn-rounded">
-                                Edit
+                                <fmt:message key="actions.edit"/>
                             </button>
 
                             <input class="answSubmit_${answer.id} button-submit-edit-question" style="max-width: 10%;"
@@ -325,7 +351,7 @@
                                         class="btn btn-link btn-rounded btn-sm fw-bold"
                                         data-mdb-ripple-color="dark"
                                 >
-                                    Delete
+                                    <fmt:message key="actions.delete"/>
                                 </button>
                             </form>
 
@@ -352,7 +378,9 @@
                     <div class="card-body p-md-3 mx-md-5">
 
                         <div class="text-center">
-                            <h4 class="mt-1 mb-4">Adding new question</h4>
+                            <h4 class="mt-1 mb-4">
+                                <fmt:message key="question.addingNew"/>
+                            </h4>
                         </div>
 
                         <form action="${pageContext.request.contextPath}/admin/tests/edit?action=addQuestion&id=${requestScope.editingTest.id}" method="post">
@@ -366,7 +394,7 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eraser-fill" viewBox="0 0 16 16">
                                         <path d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828l6.879-6.879zm.66 11.34L3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293l.16-.16z"></path>
                                     </svg>
-                                    Reset
+                                    <fmt:message key="actions.reset"/>
                                 </button>
                             </div>
                             <div class="text-center mb-4">
@@ -377,7 +405,7 @@
                                         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
                                         <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
                                     </svg>
-                                    Add
+                                    <fmt:message key="actions.add"/>
                                 </button>
                             </div>
                         </form>
@@ -396,7 +424,9 @@
                     <div class="card-body p-md-3 mx-md-5">
 
                         <div class="text-center">
-                            <h4 class="mt-1 mb-4">Adding new answer</h4>
+                            <h4 class="mt-1 mb-4">
+                                <fmt:message key="answer.addingNew"/>
+                            </h4>
                         </div>
 
                         <form action="${pageContext.request.contextPath}/admin/tests/edit?action=addAnswer&id=${requestScope.editingTest.id}"
@@ -409,9 +439,9 @@
                             </div>
 
                             <select name="answerStatusSelect" class="form-select m-b-15" aria-label="status selecting">
-                                <option selected>Status</option>
-                                <option style="color: green" value="RIGHT">Right</option>
-                                <option style="color: red" value="WRONG">Wrong</option>
+                                <option selected><fmt:message key="status"/></option>
+                                <option style="color: green" value="RIGHT"><fmt:message key="answer.status.right"/></option>
+                                <option style="color: red" value="WRONG"><fmt:message key="answer.status.wrong"/></option>
                             </select>
 
                             <div class="text-center pt-1">
@@ -420,7 +450,7 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eraser-fill" viewBox="0 0 16 16">
                                         <path d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828l6.879-6.879zm.66 11.34L3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293l.16-.16z"></path>
                                     </svg>
-                                    Reset
+                                    <fmt:message key="actions.reset"/>
                                 </button>
                             </div>
                             <div class="text-center mb-4">
@@ -431,7 +461,7 @@
                                         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
                                         <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
                                     </svg>
-                                    Add
+                                    <fmt:message key="actions.add"/>
                                 </button>
                             </div>
                         </form>

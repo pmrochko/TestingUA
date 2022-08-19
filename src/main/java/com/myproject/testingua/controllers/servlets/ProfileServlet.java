@@ -2,6 +2,7 @@ package com.myproject.testingua.controllers.servlets;
 
 import com.myproject.testingua.DataBase.DAO.impl.UserDAOImpl;
 import com.myproject.testingua.DataBase.DBException;
+import com.myproject.testingua.controllers.Path;
 import com.myproject.testingua.models.entity.User;
 import com.myproject.testingua.validation.DataValidator;
 
@@ -9,17 +10,26 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.Arrays;
 
 @WebServlet(name = "ProfileServlet", value = "/profile")
 public class ProfileServlet extends HttpServlet {
 
     private static final long serialVersionUID = -7052381877104669441L;
-    private final static String EDIT = "edit";
+    private static final String EDIT = "edit";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        request.getRequestDispatcher("WEB-INF/views/userProfile.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        User user = (User) request.getSession().getAttribute("currentUser");
+        if (user != null) {
+            request.getRequestDispatcher("WEB-INF/views/userProfile.jsp").forward(request, response);
+        } else {
+            session.setAttribute("errorMessage", "You must be sign in account");
+            session.setAttribute("prevPage", getServletContext().getContextPath());
+            request.getRequestDispatcher(Path.ERROR_PAGE).forward(request, response);
+        }
 
     }
 
@@ -35,7 +45,7 @@ public class ProfileServlet extends HttpServlet {
             String value;
 
             if (currUser != null && choice != null) {
-                try {                       // Must be created correct ERROR_PAGE structure !!!
+                try {
                     switch (choice) {
                         case "surnameForm":
                             value = request.getParameter("surname");
@@ -103,11 +113,17 @@ public class ProfileServlet extends HttpServlet {
                             break;
                     }
                 } catch (DBException e) {
-                    e.printStackTrace();
-                }                              // Must be created correct ERROR_PAGE structure !!!
+                    session.setAttribute("errorMessage", e.getMessage());
+                    session.setAttribute("prevPage", getServletContext().getContextPath());
+                    response.sendRedirect("/error");
+                }
+            } else {
+                session.setAttribute("errorMessage", "You must be sign in account");
+                session.setAttribute("prevPage", getServletContext().getContextPath());
+                response.sendRedirect("/error");
             }
         }
 
-        response.sendRedirect("profile");
+        response.sendRedirect("/profile");
     }
 }

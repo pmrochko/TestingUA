@@ -1,0 +1,11 @@
+<taglib>
+    <tlib-version>1.0</tlib-version>
+    <jsp-version>2.0</jsp-version>
+    <short-name>custom</short-name>
+
+    <tag>
+        <name>currentDate</name>
+        <tag-class>com.myproject.testingua.customTags.CurrentDateTag</tag-class>
+        <body-content>scriptless</body-content>
+    </tag>
+</taglib>

@@ -1,8 +1,8 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="../templates/libsAndLocale.jspf" %>
+
 <html>
 <head>
-    <title>Students</title>
+    <title><fmt:message key="admin.studentsPage"/></title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
           rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
@@ -39,43 +39,57 @@
                         <div class="card-body p-md-3 mx-md-5">
 
                             <div class="text-center">
-                                <h4 class="mt-1 mb-4">Editing user data</h4>
+                                <h4 class="mt-1 mb-4">
+                                    <fmt:message key="user.edit"/>
+                                </h4>
                             </div>
 
                             <form action="${pageContext.request.contextPath}/admin/students?action=edit" method="post">
                                 <div class="form-outline mb-3">
                                     <input type="text" name="name" id="name" class="form-control"
                                            value="${sessionScope.editingUser.name}"/>
-                                    <label class="form-label" for="name">Name</label>
+                                    <label class="form-label" for="name">
+                                        <fmt:message key="name"/>
+                                    </label>
                                 </div>
 
                                 <div class="form-outline mb-3">
                                     <input type="text" name="surname" id="surname" class="form-control"
                                            value="${sessionScope.editingUser.surname}"/>
-                                    <label class="form-label" for="surname">Surname</label>
+                                    <label class="form-label" for="surname">
+                                        <fmt:message key="surname"/>
+                                    </label>
                                 </div>
 
                                 <div class="form-outline mb-3">
                                     <input type="email" name="email" id="email" class="form-control"
                                            value="${sessionScope.editingUser.email}"/>
-                                    <label class="form-label" for="email">Email</label>
+                                    <label class="form-label" for="email">
+                                        <fmt:message key="email"/>
+                                    </label>
                                 </div>
 
                                 <div class="form-outline mb-3">
                                     <input type="text" name="login" id="login" class="form-control"
                                            value="${sessionScope.editingUser.login}"/>
-                                    <label class="form-label" for="login">Login</label>
+                                    <label class="form-label" for="login">
+                                        <fmt:message key="login"/>
+                                    </label>
                                 </div>
 
                                 <div class="form-outline mb-3">
                                     <input type="tel" name="tel" id="tel" class="form-control"
                                            value="${sessionScope.editingUser.tel}"/>
-                                    <label class="form-label" for="tel">Phone number</label>
+                                    <label class="form-label" for="tel">
+                                        <fmt:message key="phoneNumber"/>
+                                    </label>
                                 </div>
 
                                 <div class="text-center pt-1 mb-4">
                                     <button class="btn btn-primary btn-block fa-lg mb-3 text-black"
-                                            style="background-color: #FF8800; border: 1px grey solid" type="submit">Edit</button>
+                                            style="background-color: #FF8800; border: 1px grey solid" type="submit">
+                                        <fmt:message key="actions.edit"/>
+                                    </button>
                                 </div>
                             </form>
 
@@ -98,12 +112,12 @@
 
     <header class="header">
         <div class="header-title">
-            List of students
+            <fmt:message key="admin.studentsPage.headerTitle"/>
         </div>
         <div class="input-group search">
             <div class="form-outline">
                 <input type="search" id="searchForm" class="form-control bg-dark" onkeyup="searchFunction('names')"/>
-                <label class="form-label" for="searchForm">Search for names</label>
+                <label class="form-label" for="searchForm"><fmt:message key="search.byName"/></label>
             </div>
             <button type="button" class="btn btn-primary">
                 <i class="fas fa-search"></i>
@@ -117,97 +131,12 @@
 
             <thead class="bg-light">
             <tr>
-                <th class="table-th" onclick="sortTable(0)">
-                    Name
-                    <span class="sort-picture">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"></path>
-                        </svg>
-                    </span>
-                    <span class="sort-picture" id="sort-up0" hidden="hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-up" viewBox="0 0 16 16">
-                            <path d="M3.5 12.5a.5.5 0 0 1-1 0V3.707L1.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.498.498 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L3.5 3.707V12.5zm3.5-9a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"></path>
-                        </svg>
-                    </span>
-                    <span class="sort-picture" id="sort-down0"  hidden="hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-down" viewBox="0 0 16 16">
-                            <path d="M3.5 2.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 11.293V2.5zm3.5 1a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"></path>
-                        </svg>
-                    </span>
-                </th>
-                <th class="table-th" onclick="sortTable(1)">
-                    Login
-                    <span class="sort-picture">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"></path>
-                        </svg>
-                    </span>
-                    <span class="sort-picture" id="sort-up1" hidden="hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-up" viewBox="0 0 16 16">
-                            <path d="M3.5 12.5a.5.5 0 0 1-1 0V3.707L1.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.498.498 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L3.5 3.707V12.5zm3.5-9a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"></path>
-                        </svg>
-                    </span>
-                    <span class="sort-picture" id="sort-down1"  hidden="hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-down" viewBox="0 0 16 16">
-                            <path d="M3.5 2.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 11.293V2.5zm3.5 1a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"></path>
-                        </svg>
-                    </span>
-                </th>
-                <th class="table-th" onclick="sortTable(2)">
-                    Phone number
-                    <span class="sort-picture">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"></path>
-                        </svg>
-                    </span>
-                    <span class="sort-picture" id="sort-up2" hidden="hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-up" viewBox="0 0 16 16">
-                            <path d="M3.5 12.5a.5.5 0 0 1-1 0V3.707L1.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.498.498 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L3.5 3.707V12.5zm3.5-9a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"></path>
-                        </svg>
-                    </span>
-                    <span class="sort-picture" id="sort-down2"  hidden="hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-down" viewBox="0 0 16 16">
-                            <path d="M3.5 2.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 11.293V2.5zm3.5 1a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"></path>
-                        </svg>
-                    </span>
-                </th>
-                <th class="table-th" onclick="sortTable(3)">
-                    Passed tests
-                    <span class="sort-picture">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"></path>
-                        </svg>
-                    </span>
-                    <span class="sort-picture" id="sort-up3" hidden="hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-up" viewBox="0 0 16 16">
-                            <path d="M3.5 12.5a.5.5 0 0 1-1 0V3.707L1.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.498.498 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L3.5 3.707V12.5zm3.5-9a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"></path>
-                        </svg>
-                    </span>
-                    <span class="sort-picture" id="sort-down3"  hidden="hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-down" viewBox="0 0 16 16">
-                            <path d="M3.5 2.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 11.293V2.5zm3.5 1a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"></path>
-                        </svg>
-                    </span>
-                </th>
-                <th class="table-th" onclick="sortTable(4)">
-                    Status
-                    <span class="sort-picture">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"></path>
-                        </svg>
-                    </span>
-                    <span class="sort-picture" id="sort-up4" hidden="hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-up" viewBox="0 0 16 16">
-                            <path d="M3.5 12.5a.5.5 0 0 1-1 0V3.707L1.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.498.498 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L3.5 3.707V12.5zm3.5-9a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"></path>
-                        </svg>
-                    </span>
-                    <span class="sort-picture" id="sort-down4"  hidden="hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-down" viewBox="0 0 16 16">
-                            <path d="M3.5 2.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 11.293V2.5zm3.5 1a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"></path>
-                        </svg>
-                    </span>
-                </th>
-                <th>Actions</th>
+                <my:columnTitle index="0" name="name"/>
+                <my:columnTitle index="1" name="login"/>
+                <my:columnTitle index="2" name="phoneNumber"/>
+                <my:columnTitle index="3" name="passedTests"/>
+                <my:columnTitle index="4" name="status"/>
+                <th><fmt:message key="actions"/></th>
             </tr>
             </thead>
 
@@ -215,7 +144,6 @@
 
             <c:forEach var="user" items="${requestScope.usersList}">
                 <c:if test="${user.role.name() == 'STUDENT'}">
-
                     <tr>
                         <td>
                             <div class="d-flex align-items-center">
@@ -243,10 +171,14 @@
                         <td>
                             <c:choose>
                                 <c:when test="${user.blocked == false}">
-                                    <span class="badge badge-success rounded-pill d-inline">Normal</span>
+                                    <span class="badge badge-success rounded-pill d-inline">
+                                        <fmt:message key="user.banStatus.normal"/>
+                                    </span>
                                 </c:when>
                                 <c:otherwise>
-                                    <span class="badge badge-danger rounded-pill d-inline">Blocked</span>
+                                    <span class="badge badge-danger rounded-pill d-inline">
+                                        <fmt:message key="user.banStatus.blocked"/>
+                                    </span>
                                 </c:otherwise>
                             </c:choose>
                         </td>
@@ -254,7 +186,7 @@
                             <button onclick="document.location='/admin/students?editingUserID=${user.id}'"
                                     type="button"
                                     class="btn btn-link btn-sm btn-rounded">
-                                Edit
+                                <fmt:message key="actions.edit"/>
                             </button>
                             <c:choose>
                                 <c:when test="${user.blocked == true}">
@@ -266,7 +198,7 @@
                                                 class="btn btn-link btn-rounded btn-sm fw-bold"
                                                 data-mdb-ripple-color="dark"
                                         >
-                                            UNBLOCK
+                                            <fmt:message key="actions.unblock"/>
                                         </button>
                                     </form>
                                 </c:when>
@@ -279,14 +211,13 @@
                                                 class="btn btn-link btn-rounded btn-sm fw-bold"
                                                 data-mdb-ripple-color="dark"
                                         >
-                                            BLOCK
+                                            <fmt:message key="actions.block"/>
                                         </button>
                                     </form>
                                 </c:otherwise>
                             </c:choose>
                         </td>
                     </tr>
-
                 </c:if>
             </c:forEach>
 

@@ -49,15 +49,12 @@ public class ProcessPassingTestServlet extends HttpServlet {
                 }
 
             } catch (DBException e) {
-                e.printStackTrace();
+                session.setAttribute("errorMessage", e.getMessage());
+                session.setAttribute("prevPage", getServletContext().getContextPath());
+                response.sendRedirect("/error");
             }
         }
         response.sendRedirect(Path.STUDENT_TESTS_PAGE);
-
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 }

@@ -17,11 +17,19 @@ public class DeleteEntityServlet extends HttpServlet {
     private static final long serialVersionUID = 6252845387114414926L;
 
     @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        response.sendError(404);
+
+    }
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String entity = request.getParameter("entity");
         String entityID = request.getParameter("entityID");
         String testID = request.getParameter("testID");
+        HttpSession session = request.getSession();
 
         if (entity != null && !entity.isBlank() && testID != null && !testID.isBlank()) {
             try {
@@ -41,9 +49,10 @@ public class DeleteEntityServlet extends HttpServlet {
                         testDAOImpl.deleteTestByID(Integer.parseInt(testID));
                         break;
                 }
-            } catch (DBException ex) {
-                // error-page
-                ex.printStackTrace();
+            } catch (DBException e) {
+                session.setAttribute("errorMessage", e.getMessage());
+                session.setAttribute("prevPage", getServletContext().getContextPath());
+                response.sendRedirect("/error");
             }
         }
 

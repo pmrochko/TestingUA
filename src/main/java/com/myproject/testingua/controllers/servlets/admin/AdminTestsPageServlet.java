@@ -35,7 +35,9 @@ public class AdminTestsPageServlet extends HttpServlet {
             TestDAOImpl testDAOImpl = new TestDAOImpl();
             tests = testDAOImpl.findAllTests();
         } catch (DBException e) {
-            e.printStackTrace();
+            session.setAttribute("errorMessage", e.getMessage());
+            session.setAttribute("prevPage", getServletContext().getContextPath());
+            response.sendRedirect("/error");
         }
 
         if (subjects != null && tests != null) {
@@ -85,7 +87,6 @@ public class AdminTestsPageServlet extends HttpServlet {
                     else session.setAttribute("addedTest", "failed");
 
                 } catch (DBException | NumberFormatException e) {
-                    e.printStackTrace();
                     session.setAttribute("addedTest", "failed");
                 }
             } else {

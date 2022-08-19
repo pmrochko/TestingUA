@@ -4,13 +4,11 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
-
 /**
  * Encoding filter.
  *
  * @author Pavlo Mrochko
  */
-
 @WebFilter(filterName = "EncodingFilter")
 public class EncodingFilter implements Filter {
     private String encoding;
@@ -19,7 +17,6 @@ public class EncodingFilter implements Filter {
     /**
      * Destroy method.
      */
-
     public void destroy() {
         //-----------------
     }

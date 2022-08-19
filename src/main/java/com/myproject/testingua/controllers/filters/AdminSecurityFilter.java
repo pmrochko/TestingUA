@@ -23,10 +23,13 @@ public class AdminSecurityFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
 
+        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+        HttpSession session = httpServletRequest.getSession();
+
         if (accessAllowed(request)) {
             chain.doFilter(request, response);
         } else {
-            request.setAttribute("errorMessage", "You are not admin");
+            session.setAttribute("errorMessage", "You are not admin");
             request.getRequestDispatcher(Path.ERROR_PAGE).forward(request, response);
         }
 

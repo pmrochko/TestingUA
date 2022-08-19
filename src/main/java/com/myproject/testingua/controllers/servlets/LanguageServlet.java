@@ -19,7 +19,6 @@ public class LanguageServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String language = request.getParameter("lang");
-        request.getSession().setAttribute("lang", language);
         response.addCookie(new Cookie("lang", language));
 
         response.sendRedirect("/");

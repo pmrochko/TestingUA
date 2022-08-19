@@ -5,21 +5,17 @@
 ======================================--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 
 <%--======================================
       localization
 ======================================--%>
 <c:choose>
-  <c:when test="${empty sessionScope.currentUser}">
-    <c:if test="${not empty cookie.lang}">
-      <fmt:setLocale value="${cookie.lang.value}" />
-    </c:if>
+  <c:when test="${not empty cookie.lang}">
+    <fmt:setLocale value="${cookie.lang.value}" />
   </c:when>
   <c:otherwise>
-    <c:set var="language"
-           value="${not empty sessionScope.lang ? sessionScope.lang : pageContext.request.locale.language}"
-           scope="session" />
-    <fmt:setLocale value="${language}" />
+    <fmt:setLocale value="${pageContext.request.locale.language}" />
   </c:otherwise>
 </c:choose>
 <fmt:setBundle basename="resources" />

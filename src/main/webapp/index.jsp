@@ -44,11 +44,11 @@
         <ul class="nav nav-pills nav-justified mb-4" id="ex1" role="tablist">
             <li class="nav-item" role="presentation">
                 <a class="nav-link active" id="tab-login" data-mdb-toggle="pill" href="#pills-login" role="tab"
-                   aria-controls="pills-login" aria-selected="true">Login</a>
+                   aria-controls="pills-login" aria-selected="true"><fmt:message key="button.login"/></a>
             </li>
             <li class="nav-item" role="presentation">
                 <a class="nav-link" id="tab-register" data-mdb-toggle="pill" href="#pills-register" role="tab"
-                   aria-controls="pills-register" aria-selected="false">Register</a>
+                   aria-controls="pills-register" aria-selected="false"><fmt:message key="button.registration"/></a>
             </li>
         </ul>
 
@@ -59,17 +59,17 @@
                 <c:choose>
                     <c:when test="${sessionScope.loginStatus.equals('banned')}">
                         <div class="mb-3 mt-5" style="text-align: center; color: red;">
-                            Your account has been blocked
+                            <fmt:message key="login.message.blocked"/>
                         </div>
                     </c:when>
                     <c:when test="${sessionScope.loginStatus.equals('empty')}">
                         <div class="mb-3 mt-5" style="text-align: center; color: #ff7300;">
-                            Fill in all the fields and try again
+                            <fmt:message key="login.message.empty"/>
                         </div>
                     </c:when>
                     <c:when test="${sessionScope.loginStatus.equals('failed')}">
                         <div class="mb-3 mt-5" style="text-align: center; color: red;">
-                            You have entered incorrect data
+                            <fmt:message key="login.message.failed"/>
                         </div>
                     </c:when>
                     <c:otherwise>
@@ -84,37 +84,27 @@
                     <!-- Login input -->
                     <div class="form-outline mb-4">
                         <input name="login" type="text" id="loginName" class="form-control" required/>
-                        <label class="form-label" for="loginName">Login</label>
+                        <label class="form-label" for="loginName"><fmt:message key="login"/></label>
                     </div>
 
                     <!-- Password input -->
                     <div class="form-outline mb-6">
                         <input name="password" type="password" id="loginPassword" class="form-control" required/>
-                        <label class="form-label" for="loginPassword">Password</label>
-                    </div>
-
-                    <!-- 2 column grid layout -->
-                    <div class="row mb-4">
-                        <div class="col-md-6 d-flex justify-content-center">
-                            <!-- Checkbox -->
-                            <div class="form-check mb-3 mb-md-0">
-                                <input class="form-check-input" type="checkbox" value="" id="loginCheck"/>
-                                <label class="form-check-label" for="loginCheck"> Remember me </label>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6 d-flex justify-content-center">
-                            <!-- Simple link -->
-                            <a href="">Forgot password?</a>
-                        </div>
+                        <label class="form-label" for="loginPassword"><fmt:message key="password"/></label>
                     </div>
 
                     <!-- Submit button -->
-                    <input id="signIn" type="submit" value="Sign in" class="btn btn-primary btn-block mb-4"/>
+                    <input id="signIn" type="submit" class="btn btn-primary btn-block mb-4"
+                           value="<fmt:message key="login.submit"/>"/>
 
                     <!-- Register buttons -->
                     <div class="text-center">
-                        <p>Not a member? <a href="#" onclick="document.querySelector('#tab-register').click()">Register</a></p>
+                        <p>
+                            <fmt:message key="registration.nMember"/>
+                            <a href="#" onclick="document.querySelector('#tab-register').click()">
+                                <fmt:message key="button.registration"/>
+                            </a>
+                        </p>
                     </div>
                 </form>
 
@@ -122,48 +112,48 @@
             <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
                 <form action="${pageContext.request.contextPath}/registration" method="post">
                     <div id="regFormMessage" class="mb-3" style="text-align: center;">
-                        Filling out the registration form
+                        <fmt:message key="registration.message.welcome"/>
                     </div>
                     <!-- Name input -->
                     <div class="form-outline mb-4">
                         <input name="name" type="text" id="registerName" class="form-control"
                                required autocomplete="off"/>
-                        <label class="form-label" for="registerName">Name</label>
+                        <label class="form-label" for="registerName"><fmt:message key="name"/></label>
                     </div>
 
                     <!-- Surname input -->
                     <div class="form-outline mb-4">
                         <input name="surname" type="text" id="registerSurname" class="form-control"
                                required autocomplete="off"/>
-                        <label class="form-label" for="registerSurname">Surname</label>
+                        <label class="form-label" for="registerSurname"><fmt:message key="surname"/></label>
                     </div>
 
                     <!-- Login input -->
                     <div class="form-outline mb-4">
                         <input name="login" type="text" id="registerLogin" class="form-control"
                                required autocomplete="off"/>
-                        <label class="form-label" for="registerLogin">Login</label>
+                        <label class="form-label" for="registerLogin"><fmt:message key="login"/></label>
                     </div>
 
                     <!-- Email input -->
                     <div class="form-outline mb-4">
                         <input name="email" type="email" id="registerEmail" class="form-control"
                                required autocomplete="off"/>
-                        <label class="form-label" for="registerEmail">Email</label>
+                        <label class="form-label" for="registerEmail"><fmt:message key="email"/></label>
                     </div>
 
                     <!-- Password input -->
                     <div class="form-outline mb-4">
                         <input name="password" type="password" id="registerPassword" class="form-control"
                                required autocomplete="off"/>
-                        <label class="form-label" for="registerPassword">Password</label>
+                        <label class="form-label" for="registerPassword"><fmt:message key="password"/></label>
                     </div>
 
                     <!-- Repeat Password input -->
                     <div class="form-outline mb-4">
                         <input name="repeatPassword" type="password" id="registerRepeatPassword" class="form-control"
                                required autocomplete="off"/>
-                        <label class="form-label" for="registerRepeatPassword">Repeat password</label>
+                        <label class="form-label" for="registerRepeatPassword"><fmt:message key="password.repeat"/></label>
                     </div>
 
                     <!-- Checkbox -->
@@ -172,12 +162,12 @@
                                aria-describedby="registerCheckHelpText"
                                required autocomplete="off"/>
                         <label class="form-check-label" for="registerCheck">
-                            I have read and agree to the terms
+                            <fmt:message key="registration.checkbox"/>
                         </label>
                     </div>
 
                     <!-- Submit button -->
-                    <button type="submit" class="btn btn-primary btn-block mb-3">Sign up</button>
+                    <button type="submit" class="btn btn-primary btn-block mb-3"><fmt:message key="registration.submit"/></button>
                 </form>
 
                 <c:if test="${not empty sessionScope.invalidInput}">
@@ -185,7 +175,7 @@
                         <c:when test="${sessionScope.invalidInput == 'name'}">
                             <script>
                                 let message = document.querySelector('#regFormMessage');
-                                message.textContent = "Invalid name entered";
+                                message.textContent = "<fmt:message key="registration.invalidInput.name"/>";
                                 message.style.color = "red";
                                 document.getElementById('registerName').style.backgroundColor = "#ffe8e8";
                             </script>
@@ -193,7 +183,7 @@
                         <c:when test="${sessionScope.invalidInput == 'surname'}">
                             <script>
                                 let message = document.querySelector('#regFormMessage');
-                                message.textContent = "Invalid surname entered";
+                                message.textContent = "<fmt:message key="registration.invalidInput.surname"/>";
                                 message.style.color = "red";
                                 document.getElementById('registerSurname').style.backgroundColor = "#ffe8e8";
                             </script>
@@ -201,7 +191,7 @@
                         <c:when test="${sessionScope.invalidInput == 'login'}">
                             <script>
                                 let message = document.querySelector('#regFormMessage');
-                                message.textContent = "Invalid login entered";
+                                message.textContent = "<fmt:message key="registration.invalidInput.login"/>";
                                 message.style.color = "red";
                                 document.getElementById('registerLogin').style.backgroundColor = "#ffe8e8";
                             </script>
@@ -209,7 +199,7 @@
                         <c:when test="${sessionScope.invalidInput == 'email'}">
                             <script>
                                 let message = document.querySelector('#regFormMessage');
-                                message.textContent = "Invalid email entered";
+                                message.textContent = "<fmt:message key="registration.invalidInput.email"/>";
                                 message.style.color = "red";
                                 document.getElementById('registerEmail').style.backgroundColor = "#ffe8e8";
                             </script>
@@ -217,7 +207,7 @@
                         <c:when test="${sessionScope.invalidInput == 'password'}">
                             <script>
                                 let message = document.querySelector('#regFormMessage');
-                                message.textContent = "Invalid password entered";
+                                message.textContent = "<fmt:message key="registration.invalidInput.password"/>";
                                 message.style.color = "red";
                                 document.getElementById('registerPassword').style.backgroundColor = "#ffe8e8";
                             </script>

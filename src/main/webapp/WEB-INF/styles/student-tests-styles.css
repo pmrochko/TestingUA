@@ -28,16 +28,26 @@ div.timer {
 }
 
 div.header-title {
-    margin-right: 50%;
+    margin-right: 40%;
     font-weight: bold;
 }
 
+div.header-date {
+    margin-right: 5%;
+    font-size: 15px;
+}
+
 div.header-select-subject {
-    margin-right: 40%;
+    margin-right: 3%;
     min-width: 15%;
 }
 
-div.header-select-subject form {
+div.header-select-sort {
+    margin-right: 28%;
+    min-width: 15%;
+}
+
+header form {
     margin: 0;
 }
 

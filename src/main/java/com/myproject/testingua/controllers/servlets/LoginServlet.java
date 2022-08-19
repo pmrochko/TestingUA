@@ -18,13 +18,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String page = req.getParameter("page");
-
-        if (page != null && !page.isEmpty()) {
-            if ("error".equals(page)) {
-                req.getRequestDispatcher("WEB-INF/views/errorPage.jsp").forward(req, resp);
-            }
-        }
+        resp.sendError(404);
 
     }
 
@@ -47,7 +41,8 @@ public class LoginServlet extends HttpServlet {
                 user = new UserDAOImpl().findUserByLogin(login);
             } catch (DBException e) {
                 session.setAttribute("errorMessage", e.getMessage());
-                response.sendRedirect("/login?page=error");
+                session.setAttribute("prevPage", getServletContext().getContextPath());
+                response.sendRedirect("/error");
                 return;
             }
 

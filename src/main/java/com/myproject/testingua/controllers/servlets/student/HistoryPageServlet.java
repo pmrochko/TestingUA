@@ -29,16 +29,11 @@ public class HistoryPageServlet extends HttpServlet {
             List<HistoryOfTest> records = new HistoryTestsDAOImpl().findAllTestHistoryRecordsByStudID(currentUser.getId());
             request.setAttribute("historyOfTests", records);
         } catch (DBException e) {
-            e.printStackTrace();
-            // error-page
+            session.setAttribute("errorMessage", e.getMessage());
+            session.setAttribute("prevPage", getServletContext().getContextPath());
+            response.sendRedirect("/error");
         }
 
         request.getRequestDispatcher(Path.STUDENT_HISTORY_PAGE).forward(request, response);
     }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
 }
